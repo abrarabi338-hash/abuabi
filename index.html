@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOHAMMED ABRAR VK | Aspiring Data Analyst & Web Developer</title>
+  <meta name="description" content="Personal portfolio of MOHAMMED ABRAR VK - BCA Graduate (2026), Aspiring Data Analyst, and Web Developer skilled in Python, SQL, Power BI, and the MERN Stack.">
+  <meta name="keywords" content="Mohammed Abrar VK, Data Analyst, Web Developer, BCA, Calicut University, MES College, Python, SQL, Power BI, MERN Stack, NSS Coordination Portal">
+  <meta name="author" content="Mohammed Abrar VK">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="MOHAMMED ABRAR VK | Aspiring Data Analyst & Web Developer">
+  <meta property="og:description" content="I transform data into meaningful insights and build practical web applications.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/abrar_profile.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'><rect width='24' height='24' rx='6' fill='%23080d1a'/><text x='50%25' y='65%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='12' fill='%2300f2fe'>AVK</text></svg>">
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="nav-brand" aria-label="Mohammed Abrar VK Portfolio Home">
+        <div class="brand-badge">AVK</div>
+        <div>
+          <span class="brand-text">ABRAR VK</span>
+          <span class="brand-sub">DATA & DEV</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#analytics" class="nav-link">Analytics</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Quick Admin / Portfolio Editor Trigger Button -->
+        <button class="btn-admin-pill" id="btn-admin-modal" title="Customize portfolio content (Shortcut: Ctrl+Shift+E)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          <span>Manage Data</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         2. HERO SECTION
+         ====================================================================== -->
+    <section class="hero" id="home">
+      <div class="hero-glow-orb hero-glow-1"></div>
+      <div class="hero-glow-orb hero-glow-2"></div>
+
+      <div class="container hero-grid">
+        <!-- Left Content Column -->
+        <div class="hero-content">
+          <div class="hero-badge-status">
+            <span class="pulse-dot"></span>
+            <span>Open for Data Analytics & Web Development Roles • 2026 Batch</span>
+          </div>
+
+          <h1 class="hero-name" id="hero-name">MOHAMMED ABRAR VK</h1>
+
+          <h2 class="hero-title" id="hero-title">
+            Aspiring Data Analyst <span class="divider-slash">|</span> Web Developer
+          </h2>
+
+          <p class="hero-summary" id="hero-summary">
+            "I transform data into meaningful insights and build practical web applications."
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-primary" id="btn-hero-projects">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              View My Projects
+            </a>
+
+            <a href="#contact" class="btn btn-secondary" id="btn-hero-contact">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Contact Me
+            </a>
+
+            <a href="#analytics" class="btn btn-outline-cyan">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              Explore Analytics
+            </a>
+          </div>
+
+          <!-- Professional Information Panel (Hero Info Grid) -->
+          <div class="hero-info-panel">
+            <div class="info-item">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Education</div>
+                <div class="info-val">BCA Graduate — 2026</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Current Focus</div>
+                <div class="info-val">Data Analytics</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Project Experience</div>
+                <div class="info-val">NSS Coordination Portal</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Core Interests</div>
+                <div class="info-val">Data Analysis & Web Development</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Avatar Showcase Column -->
+        <div class="hero-avatar-wrapper">
+          <div class="avatar-frame-outer">
+            <div class="avatar-frame-inner">
+              <img src="assets/abrar_profile.jpg" alt="Mohammed Abrar VK - Aspiring Data Analyst & Web Developer" class="profile-avatar-img" id="profile-avatar-img">
+              <div class="avatar-overlay-gradient"></div>
+              <div class="avatar-status-pill">
+                <span class="pulse-dot"></span>
+                <span>Data Analytics & MERN Stack</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photo Controls Toolbar (Upload, replace, reset) -->
+          <div class="avatar-controls-toolbar">
+            <button class="avatar-action-btn" id="btn-change-photo" title="Upload and preview your custom profile photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span>Change Photo</span>
+            </button>
+            <button class="avatar-action-btn" id="btn-reset-photo" title="Reset photo back to original Mohammed Abrar VK portrait">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+              <span>Reset</span>
+            </button>
+            <input type="file" id="profile-image-input" accept="image/*" aria-label="Upload profile image">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. DATA JOURNEY (PREMIUM ANIMATED FEATURE)
+         DATA ➔ ANALYSIS ➔ INSIGHT
+         ====================================================================== -->
+    <section class="data-journey-section" id="journey">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Interactive Data Architecture</span>
+          </div>
+          <h2 class="section-title">Data Journey</h2>
+          <p class="section-subtitle">
+            An elegant visualization of how raw tabular records transform through rigorous analytical pipelines into clear, actionable decision intelligence.
+          </p>
+        </div>
+
+        <!-- Canvas Flow Animation -->
+        <div class="journey-canvas-container" aria-label="Data Journey Flow Animation: DATA to ANALYSIS to INSIGHT">
+          <canvas id="journey-canvas"></canvas>
+        </div>
+
+        <!-- Interactive Journey Cards Grid -->
+        <div class="journey-stages-grid">
+          <!-- Stage 1: Data -->
+          <div class="journey-card active" data-stage="0">
+            <div class="journey-card-step">
+              <span>STAGE 01</span>
+              <span class="stage-arrow">➔</span>
+            </div>
+            <h3 class="journey-card-title">
+              <span class="stage-icon stage-icon-data">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </span>
+              DATA
+            </h3>
+            <p class="journey-card-desc">
+              Raw, multi-source data ingestion. Capturing structured database records, CSV exports, Excel sheets, and event logs with complete schema integrity.
+            </p>
+            <div class="journey-tag-list">
+              <span class="journey-tag">SQL Extraction</span>
+              <span class="journey-tag">CSV / Excel Files</span>
+              <span class="journey-tag">Schema Validation</span>
+            </div>
+          </div>
+
+          <!-- Stage 2: Analysis -->
+          <div class="journey-card" data-stage="1">
+            <div class="journey-card-step">
+              <span>STAGE 02</span>
+              <span class="stage-arrow">➔</span>
+            </div>
+            <h3 class="journey-card-title">
+              <span class="stage-icon stage-icon-analysis">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </span>
+              ANALYSIS
+            </h3>
+            <p class="journey-card-desc">
+              Data cleaning, handling missing values, filtering outliers, and exploratory data analysis (EDA) using Python (Pandas, NumPy) and SQL aggregation.
+            </p>
+            <div class="journey-tag-list">
+              <span class="journey-tag">Python & Pandas</span>
+              <span class="journey-tag">Data Cleaning</span>
+              <span class="journey-tag">Pattern Recognition</span>
+            </div>
+          </div>
+
+          <!-- Stage 3: Insight -->
+          <div class="journey-card" data-stage="2">
+            <div class="journey-card-step">
+              <span>STAGE 03</span>
+              <span class="stage-arrow">★</span>
+            </div>
+            <h3 class="journey-card-title">
+              <span class="stage-icon stage-icon-insight">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </span>
+              INSIGHT
+            </h3>
+            <p class="journey-card-desc">
+              Synthesizing findings into executive dashboards, Power BI visual reports, and data-backed interpretations that drive informed, tangible decisions.
+            </p>
+            <div class="journey-tag-list">
+              <span class="journey-tag">Power BI Dashboards</span>
+              <span class="journey-tag">KPI Visualizations</span>
+              <span class="journey-tag">Strategic Clarity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. ABOUT ME SECTION
+         ====================================================================== -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Background & Purpose</span>
+          </div>
+          <h2 class="section-title">About Me</h2>
+          <p class="section-subtitle">
+            Combining analytical curiosity with practical web development skills to solve real-world problems.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Left Narrative Card -->
+          <div class="about-narrative-card">
+            <div class="about-quote-mark">“</div>
+            <p class="about-text-lead" id="about-lead-text">
+              I am MOHAMMED ABRAR VK, a BCA graduate from MES College, affiliated with Calicut University, who graduated in 2026. I have a background in web development and am currently focusing on developing my skills in Data Analytics. I enjoy working with data, exploring patterns, finding meaningful insights, and building practical web applications. My goal is to grow into a professional Data Analyst while continuing to strengthen my technical and problem-solving skills.
+            </p>
+
+            <div class="about-pillars">
+              <div class="pillar-item">
+                <div class="pillar-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
+                <div>
+                  <div class="pillar-title">Analytical Mindset</div>
+                  <div class="pillar-desc">Focused on data hygiene, empirical exploration, and structured query logic.</div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="pillar-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="pillar-title">Practical Engineering</div>
+                  <div class="pillar-desc">Hands-on project experience with MERN stack web applications and databases.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Synergy Visual: Connection between Data Analytics & Web Development -->
+          <div class="synergy-visual-card">
+            <div class="synergy-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>The Data & Web Development Bridge</span>
+            </div>
+
+            <div class="synergy-flow">
+              <!-- Web App Layer -->
+              <div class="synergy-node">
+                <div class="node-title">
+                  <span>Web Applications</span>
+                  <span class="node-badge badge-web">MERN Stack</span>
+                </div>
+                <div class="node-detail">
+                  React interfaces & Express REST APIs capture authentic user data, event interactions, and activity logs.
+                </div>
+              </div>
+
+              <!-- Connecting Conduit -->
+              <div class="synergy-bridge">
+                <div class="synergy-bridge-line"></div>
+              </div>
+
+              <!-- Central Bridge Layer -->
+              <div class="synergy-node" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.05);">
+                <div class="node-title">
+                  <span>Full-Cycle Data Integration</span>
+                  <span class="node-badge badge-bridge">Dual Advantage</span>
+                </div>
+                <div class="node-detail">
+                  Understanding both how software gathers data and how to extract intelligence from it gives end-to-end technical visibility.
+                </div>
+              </div>
+
+              <!-- Connecting Conduit -->
+              <div class="synergy-bridge">
+                <div class="synergy-bridge-line"></div>
+              </div>
+
+              <!-- Analytics Layer -->
+              <div class="synergy-node">
+                <div class="node-title">
+                  <span>Data Analytics & BI</span>
+                  <span class="node-badge badge-data">Python & SQL</span>
+                </div>
+                <div class="node-detail">
+                  Transforming application records with Pandas, running analytical SQL queries, and presenting insights in Power BI dashboards.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. SKILLS & TECHNOLOGIES
+         ====================================================================== -->
+    <section class="skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <span>Technical Foundation</span>
+          </div>
+          <h2 class="section-title">Skills & Technologies</h2>
+          <p class="section-subtitle">
+            Core analytical tools and full-stack web technologies developed through academic study and hands-on project implementations.
+          </p>
+        </div>
+
+        <!-- Filter & Search Controls Bar -->
+        <div class="skills-controls-bar">
+          <div class="skills-filter-tabs">
+            <button class="filter-tab active" data-filter="all">All Skills</button>
+            <button class="filter-tab" data-filter="data-analytics">Data Analytics</button>
+            <button class="filter-tab" data-filter="web-development">Web Development</button>
+          </div>
+
+          <div class="skills-search-wrapper">
+            <svg class="skills-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="skills-search-input" class="skills-search-input" placeholder="Search skills (e.g. Python, SQL, React)..." aria-label="Search skills">
+          </div>
+        </div>
+
+        <!-- Category 1: Data Analytics -->
+        <div class="category-block" id="block-data-analytics">
+          <div class="category-title-bar">
+            <div class="category-heading">
+              <span class="cat-icon-badge cat-badge-analytics">📊</span>
+              <span>Data Analytics</span>
+            </div>
+            <span class="category-count" id="count-data-analytics">9 Technologies</span>
+          </div>
+          <div class="skills-grid" id="grid-data-analytics">
+            <!-- Dynamically populated from data store -->
+          </div>
+        </div>
+
+        <!-- Category 2: Web Development -->
+        <div class="category-block" id="block-web-dev">
+          <div class="category-title-bar">
+            <div class="category-heading">
+              <span class="cat-icon-badge cat-badge-web">💻</span>
+              <span>Web Development</span>
+            </div>
+            <span class="category-count" id="count-web-dev">9 Technologies</span>
+          </div>
+          <div class="skills-grid" id="grid-web-development">
+            <!-- Dynamically populated from data store -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. FEATURED PROJECTS
+         ====================================================================== -->
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <span>Real-World Implementations</span>
+          </div>
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-subtitle">
+            Authentic software and data solutions designed to solve institutional challenges with modern architectures.
+          </p>
+        </div>
+
+        <!-- Dynamic Projects Container -->
+        <div class="projects-grid" id="projects-container">
+          <!-- Populated from PortfolioStore via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. DATA ANALYTICS SHOWCASE
+         Heading: Turning Data Into Insights
+         ====================================================================== -->
+    <section class="analytics-showcase-section" id="analytics">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Analytics Workflow & Exploration</span>
+          </div>
+          <h2 class="section-title">Turning Data Into Insights</h2>
+          <p class="section-subtitle">
+            Demonstrating analytical methodologies through interactive data pipelines, metric indicators, and exploratory visual dashboards.
+          </p>
+        </div>
+
+        <!-- Five-Stage Analytical Workflow Banner -->
+        <div class="pipeline-banner" aria-label="Analytical Pipeline Stages">
+          <div class="pipeline-stage">
+            <span class="stage-number">01</span>
+            <span class="stage-label">Data Collection</span>
+          </div>
+          <span class="pipeline-separator">➔</span>
+
+          <div class="pipeline-stage">
+            <span class="stage-number">02</span>
+            <span class="stage-label">Data Cleaning</span>
+          </div>
+          <span class="pipeline-separator">➔</span>
+
+          <div class="pipeline-stage">
+            <span class="stage-number">03</span>
+            <span class="stage-label">Data Analysis</span>
+          </div>
+          <span class="pipeline-separator">➔</span>
+
+          <div class="pipeline-stage">
+            <span class="stage-number">04</span>
+            <span class="stage-label">Visualization</span>
+          </div>
+          <span class="pipeline-separator">➔</span>
+
+          <div class="pipeline-stage">
+            <span class="stage-number">05</span>
+            <span class="stage-label">Insights</span>
+          </div>
+        </div>
+
+        <!-- Interactive Analytical Dashboard Frame -->
+        <div class="analytics-dashboard-frame">
+          <!-- Dashboard Topbar -->
+          <div class="dashboard-topbar">
+            <div class="dashboard-title-group">
+              <span class="db-indicator"></span>
+              <span class="db-title">Analytics Explorer Console</span>
+            </div>
+
+            <div class="dashboard-controls">
+              <!-- Dataset Selector -->
+              <div class="db-select-wrapper">
+                <select id="analytics-dataset-select" class="db-select" aria-label="Select Dataset">
+                  <option value="nss_activity">NSS Volunteer Attendance & Activity</option>
+                  <option value="credit_distribution">Student Credit Points & Distribution</option>
+                  <option value="pipeline_health">Data Pipeline Processing Metrics</option>
+                </select>
+                <svg class="db-select-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+              <!-- Timeframe Tabs -->
+              <div class="db-timeframe-tabs">
+                <button class="time-btn active" data-timeframe="month">Monthly</button>
+                <button class="time-btn" data-timeframe="quarter">Quarterly</button>
+                <button class="time-btn" data-timeframe="year">Annual</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Metric Cards Grid -->
+          <div class="dashboard-kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Total Volume</div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="kpi-total-val">840 Hrs</span>
+                <span class="kpi-badge badge-positive">Logged</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">Average Rate</div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="kpi-avg-val">210 / Wk</span>
+                <span class="kpi-badge badge-neutral">Mean</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">Data Hygiene Score</div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="kpi-clean-val">99.4%</span>
+                <span class="kpi-badge badge-positive">Clean</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">Trend Velocity</div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="kpi-trend-val">+24.5%</span>
+                <span class="kpi-badge badge-positive">Expansion</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Chart & Insights Body -->
+          <div class="dashboard-body-grid">
+            <!-- Left Chart Card -->
+            <div class="chart-main-card">
+              <div class="chart-header">
+                <span class="chart-title">Visual Distribution & Trends</span>
+                <div class="chart-type-toggles">
+                  <button class="chart-toggle-btn active" data-type="bar">Bar Chart</button>
+                  <button class="chart-toggle-btn" data-type="line">Trend Line</button>
+                </div>
+              </div>
+
+              <div class="chart-canvas-wrapper">
+                <canvas id="analytics-chart-canvas" aria-label="Interactive Data Chart Canvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Right Insights Card -->
+            <div class="dashboard-side-card">
+              <div class="side-panel-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Analytical Takeaways</span>
+              </div>
+
+              <ul class="insights-list" id="analytics-insights-list">
+                <!-- Dynamically populated based on active dataset -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         8. EDUCATION SECTION
+         ====================================================================== -->
+    <section class="education-section" id="education">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+            <span>Academic Background</span>
+          </div>
+          <h2 class="section-title">Education</h2>
+          <p class="section-subtitle">
+            Formal undergraduate computing education grounding analytical methods and software fundamentals.
+          </p>
+        </div>
+
+        <div class="education-wrapper">
+          <!-- Main Education Card -->
+          <div class="education-main-card">
+            <div class="edu-degree-header">
+              <h3 class="edu-degree-title" id="edu-degree">Bachelor of Computer Applications (BCA)</h3>
+              <span class="edu-year-badge" id="edu-year">Graduation Year: 2026</span>
+            </div>
+
+            <div class="edu-college-name" id="edu-college">MES College</div>
+            <div class="edu-university-affil" id="edu-university">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+              <span>Affiliated with Calicut University</span>
+            </div>
+
+            <p class="edu-overview-text">
+              Comprehensive three-year computing degree with specialized focus on database administration, structured query languages, software system design, and algorithmic problem-solving.
+            </p>
+
+            <div class="edu-coursework-title">Key Subject Areas & Practical Focus</div>
+            <div class="edu-subjects-grid">
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Database Management Systems (DBMS & SQL)</span>
+              </div>
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Python Programming & Scripting</span>
+              </div>
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Data Structures & Algorithmic Analysis</span>
+              </div>
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Web Technologies & Application Systems</span>
+              </div>
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Probability & Mathematical Foundations</span>
+              </div>
+              <div class="edu-subject-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Software Engineering & Architecture</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Location & Overview Card -->
+          <div class="education-meta-card">
+            <div class="meta-block">
+              <div class="meta-title">Location</div>
+              <div class="meta-val" id="edu-location">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan-primary);">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Koyilandy, Kozhikode, Kerala, India</span>
+              </div>
+            </div>
+
+            <div class="meta-block">
+              <div class="meta-title">Current Objective</div>
+              <div class="meta-val">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--violet-primary);">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+                <span>Transitioning into Professional Data Analytics</span>
+              </div>
+            </div>
+
+            <div class="meta-block">
+              <div class="meta-title">Authenticity Standard</div>
+              <p style="font-size: 0.84375rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
+                Verified academic profile. Zero fabricated employment records or invented statistics. Focused on transparent competency and demonstrable project work.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         9. CONTACT SECTION
+         ====================================================================== -->
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Let's Connect</span>
+          </div>
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">
+            Open to internships, entry-level Data Analyst positions, junior web development roles, and collaborative opportunities.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left Direct Contact Channels -->
+          <div class="contact-info-col">
+            <p class="contact-lead-text">
+              Feel free to reach out directly via email, connect on LinkedIn, or send a message using the form. I typically respond within 24 hours.
+            </p>
+
+            <div class="contact-cards-stack">
+              <!-- Location Card -->
+              <div class="contact-channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="channel-label">Location</div>
+                    <div class="channel-value" id="contact-location-val">Koyilandy, Kozhikode, Kerala, India</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email Card with Copy Button -->
+              <div class="contact-channel-card">
+                <div class="channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="channel-label">Email Address</div>
+                    <div class="channel-value" id="contact-email-val">mohammedabrarvk@gmail.com</div>
+                  </div>
+                </div>
+                <button class="btn-copy-chip" id="btn-copy-email" title="Copy email address to clipboard">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              <!-- LinkedIn Card -->
+              <a href="https://www.linkedin.com/in/mohammed-abrar-vk" target="_blank" rel="noopener noreferrer" class="contact-channel-card" id="contact-linkedin-link">
+                <div class="channel-left">
+                  <div class="channel-icon" style="color: #38bdf8;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="channel-label">Professional Network</div>
+                    <div class="channel-value">LinkedIn Profile</div>
+                  </div>
+                </div>
+                <span class="btn-copy-chip">Connect ↗</span>
+              </a>
+            </div>
+
+            <!-- Recruiter Availability Note -->
+            <div class="recruiter-note-box">
+              <div class="recruiter-note-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="recruiter-note-text">
+                <strong>Availability Status:</strong> Ready for Data Analytics internships, entry-level analyst opportunities, and junior developer positions starting 2026.
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Contact Form -->
+          <div class="contact-form-card">
+            <h3 class="form-title">Send a Direct Message</h3>
+
+            <form class="contact-form" id="contact-form">
+              <div class="form-group">
+                <label for="form-name" class="form-label">Your Name *</label>
+                <input type="text" id="form-name" class="form-input" placeholder="e.g. Rahul Sharma / Sarah Jenkins" required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-email" class="form-label">Your Email *</label>
+                <input type="email" id="form-email" class="form-input" placeholder="name@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-subject" class="form-label">Subject</label>
+                <input type="text" id="form-subject" class="form-input" placeholder="e.g. Internship Inquiry / Project Discussion">
+              </div>
+
+              <div class="form-group">
+                <label for="form-message" class="form-label">Message *</label>
+                <textarea id="form-message" class="form-textarea" placeholder="Hello Mohammed Abrar, I came across your portfolio and would like to discuss..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       10. FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="nav-brand" style="margin-bottom: 8px;">
+            <div class="brand-badge">AVK</div>
+            <div>
+              <span class="brand-text">MOHAMMED ABRAR VK</span>
+            </div>
+          </div>
+          <p class="footer-tagline">
+            BCA Graduate (2026) | Aspiring Data Analyst & Web Developer. Transforming raw tabular data into meaningful insights and building dependable web applications.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-links-title">Navigation</div>
+            <ul class="footer-nav-list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About Me</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#projects">Projects</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-links-title">Sections</div>
+            <ul class="footer-nav-list">
+              <li><a href="#analytics">Data Analytics</a></li>
+              <li><a href="#education">Education</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#journey">Data Journey</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 MOHAMMED ABRAR VK. Authentic BCA Portfolio. Built with clean HTML, CSS & JavaScript.
+        </div>
+
+        <a href="#home" class="back-to-top">
+          <span>Back to Top</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       11. FLOATING ACTION BUTTON (PORTFOLIO MANAGER)
+       ======================================================================== -->
+  <button class="fab-admin-trigger" id="fab-admin-trigger" title="Open Portfolio Content Manager (Shortcut: Ctrl+Shift+E)">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 20h9"></path>
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+    </svg>
+    <span>Edit Portfolio</span>
+  </button>
+
+  <!-- ========================================================================
+       12. ADMIN MANAGEMENT MODAL
+       Tabs: Skills, Projects, Profile Details, Backup/Reset
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="admin-modal-container">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan-primary);">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          <h3 class="modal-title" id="modal-title">Portfolio Content Manager</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-modal-close" aria-label="Close modal">✕</button>
+      </div>
+
+      <!-- Modal Tabs -->
+      <div class="admin-nav-tabs">
+        <button class="admin-tab-btn active" data-tab="skills">Manage Skills</button>
+        <button class="admin-tab-btn" data-tab="projects">Manage Projects</button>
+        <button class="admin-tab-btn" data-tab="profile">Profile & Links</button>
+        <button class="admin-tab-btn" data-tab="backup">Backup & Reset</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- TAB 1: SKILLS -->
+        <div class="tab-pane active" id="tab-skills">
+          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Current Skills (Reorder & Edit)</h4>
+          <div class="admin-items-list" id="admin-skills-list">
+            <!-- Dynamically populated -->
+          </div>
+
+          <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Skill</h4>
+          <form class="admin-form" id="admin-skill-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="skill-input-name" class="form-label">Skill Name *</label>
+                <input type="text" id="skill-input-name" class="form-input" placeholder="e.g. Tableau" required>
+              </div>
+
+              <div class="form-group">
+                <label for="skill-input-category" class="form-label">Category *</label>
+                <select id="skill-input-category" class="form-input">
+                  <option value="data-analytics">Data Analytics</option>
+                  <option value="web-development">Web Development</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="skill-input-desc" class="form-label">Short Description *</label>
+              <textarea id="skill-input-desc" class="form-input" style="min-height: 70px;" placeholder="Brief explanation of skill application..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="skill-input-icon" class="form-label">Icon Identifier</label>
+              <select id="skill-input-icon" class="form-input">
+                <option value="code">Code (Programming)</option>
+                <option value="database">Database (SQL / Stores)</option>
+                <option value="table">Table (Excel / Spreadsheets)</option>
+                <option value="chart">Chart (Power BI / Visuals)</option>
+                <option value="layers">Layers (Pandas / Stacks)</option>
+                <option value="cpu">CPU (NumPy / Numerical)</option>
+                <option value="filter">Filter (Data Cleaning)</option>
+                <option value="search">Search (EDA)</option>
+                <option value="pie-chart">Pie Chart (Visuals)</option>
+                <option value="terminal">Terminal (JavaScript)</option>
+                <option value="atom">Atom (React)</option>
+                <option value="server">Server (Node)</option>
+                <option value="git-branch">Git Branch</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm" id="skill-form-submit-btn">Add Skill</button>
+          </form>
+        </div>
+
+        <!-- TAB 2: PROJECTS -->
+        <div class="tab-pane" id="tab-projects">
+          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Current Projects</h4>
+          <div class="admin-items-list" id="admin-projects-list">
+            <!-- Dynamically populated -->
+          </div>
+
+          <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Project</h4>
+          <form class="admin-form" id="admin-project-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="proj-input-title" class="form-label">Project Title *</label>
+                <input type="text" id="proj-input-title" class="form-input" placeholder="e.g. Sales Analysis Dashboard" required>
+              </div>
+
+              <div class="form-group">
+                <label for="proj-input-category" class="form-label">Category *</label>
+                <input type="text" id="proj-input-category" class="form-input" placeholder="e.g. Data Analytics" required>
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="proj-input-status" class="form-label">Status</label>
+                <select id="proj-input-status" class="form-input">
+                  <option value="Completed">Completed</option>
+                  <option value="Coming Soon">Coming Soon</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="proj-input-tech" class="form-label">Technologies (comma separated)</label>
+                <input type="text" id="proj-input-tech" class="form-input" placeholder="Python, SQL, Power BI">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="proj-input-desc" class="form-label">Project Description *</label>
+              <textarea id="proj-input-desc" class="form-input" style="min-height: 80px;" placeholder="Comprehensive summary of what the project accomplishes..." required></textarea>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="proj-input-github" class="form-label">GitHub Repository URL (Optional)</label>
+                <input type="url" id="proj-input-github" class="form-input" placeholder="Leave blank if not yet public">
+              </div>
+
+              <div class="form-group">
+                <label for="proj-input-live" class="form-label">Live Deployment URL (Optional)</label>
+                <input type="url" id="proj-input-live" class="form-input" placeholder="Leave blank if not yet deployed">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="proj-input-image" class="form-label">Image Path or URL</label>
+              <input type="text" id="proj-input-image" class="form-input" placeholder="assets/nss_preview.jpg">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm" id="proj-form-submit-btn">Add Project</button>
+          </form>
+        </div>
+
+        <!-- TAB 3: PROFILE & LINKS -->
+        <div class="tab-pane" id="tab-profile">
+          <form class="admin-form" id="admin-profile-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="profile-input-name" class="form-label">Full Name</label>
+                <input type="text" id="profile-input-name" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="profile-input-title" class="form-label">Professional Title</label>
+                <input type="text" id="profile-input-title" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-input-summary" class="form-label">Professional Summary</label>
+              <input type="text" id="profile-input-summary" class="form-input">
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="profile-input-college" class="form-label">College</label>
+                <input type="text" id="profile-input-college" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="profile-input-university" class="form-label">University</label>
+                <input type="text" id="profile-input-university" class="form-input">
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="profile-input-year" class="form-label">Graduation Year</label>
+                <input type="text" id="profile-input-year" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="profile-input-location" class="form-label">Location</label>
+                <input type="text" id="profile-input-location" class="form-input">
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="profile-input-email" class="form-label">Email Address</label>
+                <input type="email" id="profile-input-email" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="profile-input-linkedin" class="form-label">LinkedIn URL</label>
+                <input type="url" id="profile-input-linkedin" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-input-github" class="form-label">GitHub Profile URL (Optional)</label>
+              <input type="url" id="profile-input-github" class="form-input">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm">Save Profile Changes</button>
+          </form>
+        </div>
+
+        <!-- TAB 4: BACKUP & RESET -->
+        <div class="tab-pane" id="tab-backup">
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="background: rgba(14, 23, 42, 0.6); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
+              <h4 style="margin-bottom: 8px; color: var(--cyan-light);">Export Data Backup</h4>
+              <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Download all your customized skills, projects, and profile settings as a single portable JSON file.
+              </p>
+              <button class="btn btn-secondary btn-sm" id="btn-export-backup">Download JSON Backup</button>
+            </div>
+
+            <div style="background: rgba(14, 23, 42, 0.6); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
+              <h4 style="margin-bottom: 8px; color: var(--cyan-light);">Import Data Backup</h4>
+              <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Restore your portfolio data from a previously exported JSON backup file.
+              </p>
+              <button class="btn btn-secondary btn-sm" id="btn-import-backup">Upload JSON File</button>
+              <input type="file" id="input-import-file" accept=".json" style="display: none;">
+            </div>
+
+            <div style="background: rgba(244, 63, 94, 0.08); padding: 20px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+              <h4 style="margin-bottom: 8px; color: #fda4af;">Factory Reset</h4>
+              <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Erase local modifications and restore Mohammed Abrar VK's original initial data structure.
+              </p>
+              <button class="btn btn-sm" id="btn-reset-defaults" style="background: rgba(244, 63, 94, 0.25); border-color: var(--rose-accent); color: #fff;">
+                Reset All to Defaults
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
