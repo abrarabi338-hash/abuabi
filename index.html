@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOHAMMED ABRAR VK | Aspiring Data Analyst & Web Developer</title>
-  <meta name="description" content="Personal portfolio of MOHAMMED ABRAR VK - BCA Graduate (2026), Aspiring Data Analyst, and Web Developer skilled in Python, SQL, Power BI, and the MERN Stack.">
+  <title>MOHAMMED ABRAR VK | Data Analyst & Web Developer</title>
+  <meta name="description" content="Portfolio of MOHAMMED ABRAR VK, a BCA graduate and aspiring Data Analyst with skills in Python, SQL, Excel, Power BI, data visualization, and MERN Stack web development.">
   <meta name="keywords" content="Mohammed Abrar VK, Data Analyst, Web Developer, BCA, Calicut University, MES College, Python, SQL, Power BI, MERN Stack, NSS Coordination Portal">
   <meta name="author" content="Mohammed Abrar VK">
 
-  <!-- Open Graph / Meta -->
-  <meta property="og:title" content="MOHAMMED ABRAR VK | Aspiring Data Analyst & Web Developer">
-  <meta property="og:description" content="I transform data into meaningful insights and build practical web applications.">
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content="MOHAMMED ABRAR VK | Data Analyst & Web Developer">
+  <meta property="og:description" content="Portfolio of MOHAMMED ABRAR VK, a BCA graduate and aspiring Data Analyst with skills in Python, SQL, Excel, Power BI, data visualization, and MERN Stack web development.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/abrar_profile.jpg">
 
@@ -54,14 +54,26 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- Quick Admin / Portfolio Editor Trigger Button -->
-        <button class="btn-admin-pill" id="btn-admin-modal" title="Customize portfolio content (Shortcut: Ctrl+Shift+E)">
+        <!-- Public Admin Login Trigger (Discreet Lock Pill) -->
+        <button class="btn-admin-auth btn-public-login" id="btn-nav-admin-login" title="Admin Login (Shortcut: Ctrl+Shift+L)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 20h9"></path>
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          <span>Manage Data</span>
+          <span>Admin</span>
         </button>
+
+        <!-- Authenticated Admin Status Group (Only shown after login) -->
+        <div class="admin-status-bar" id="admin-status-bar">
+          <button class="admin-active-badge" onclick="openAdminModal('profile')" title="Open Admin Panel">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            <span>Admin Active</span>
+          </button>
+          <button class="btn-logout" id="btn-admin-logout" title="Exit Admin Mode">Logout</button>
+        </div>
 
         <!-- Mobile Menu Toggle Button -->
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -78,15 +90,12 @@
          2. HERO SECTION
          ====================================================================== -->
     <section class="hero" id="home">
-      <div class="hero-glow-orb hero-glow-1"></div>
-      <div class="hero-glow-orb hero-glow-2"></div>
-
       <div class="container hero-grid">
         <!-- Left Content Column -->
         <div class="hero-content">
           <div class="hero-badge-status">
             <span class="pulse-dot"></span>
-            <span>Open for Data Analytics & Web Development Roles • 2026 Batch</span>
+            <span>Open for Data Analytics & Web Development Opportunities • 2026 Batch</span>
           </div>
 
           <h1 class="hero-name" id="hero-name">MOHAMMED ABRAR VK</h1>
@@ -96,8 +105,28 @@
           </h2>
 
           <p class="hero-summary" id="hero-summary">
-            "I transform data into meaningful insights and build practical web applications."
+            “I transform raw data into meaningful insights and build practical technology solutions.”
           </p>
+
+          <!-- Subtle Analytical Illustration beside introduction -->
+          <div class="hero-analytical-preview" aria-label="Analytical Pipeline Workflow Preview">
+            <div class="hero-mini-pipeline">
+              <div class="mini-pipe-node">
+                <span class="node-tag">RAW</span>
+                <span class="node-name">SQL & Data Ingestion</span>
+              </div>
+              <span class="mini-pipe-arrow">➔</span>
+              <div class="mini-pipe-node">
+                <span class="node-tag" style="background: var(--accent-teal-light); color: var(--accent-teal);">EDA</span>
+                <span class="node-name">Python & Cleaning</span>
+              </div>
+              <span class="mini-pipe-arrow">➔</span>
+              <div class="mini-pipe-node">
+                <span class="node-tag" style="background: #EFF8FF; color: #0284C7;">BI</span>
+                <span class="node-name">Visual Insights</span>
+              </div>
+            </div>
+          </div>
 
           <!-- Action Buttons -->
           <div class="hero-cta-group">
@@ -116,15 +145,6 @@
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
               Contact Me
-            </a>
-
-            <a href="#analytics" class="btn btn-outline-cyan">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="20" x2="18" y2="10"></line>
-                <line x1="12" y1="20" x2="12" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="14"></line>
-              </svg>
-              Explore Analytics
             </a>
           </div>
 
@@ -189,6 +209,13 @@
           <div class="avatar-frame-outer">
             <div class="avatar-frame-inner">
               <img src="assets/abrar_profile.jpg" alt="Mohammed Abrar VK - Aspiring Data Analyst & Web Developer" class="profile-avatar-img" id="profile-avatar-img">
+              
+              <!-- Clean placeholder box if photo is removed -->
+              <div class="avatar-placeholder-box" id="avatar-placeholder-box">
+                <div class="avatar-initials">AVK</div>
+                <span class="mono" style="font-size: 0.75rem; color: var(--cyan-light);">No Photo Uploaded</span>
+              </div>
+
               <div class="avatar-overlay-gradient"></div>
               <div class="avatar-status-pill">
                 <span class="pulse-dot"></span>
@@ -197,7 +224,7 @@
             </div>
           </div>
 
-          <!-- Photo Controls Toolbar (Upload, replace, reset) -->
+          <!-- Photo Controls Toolbar -->
           <div class="avatar-controls-toolbar">
             <button class="avatar-action-btn" id="btn-change-photo" title="Upload and preview your custom profile photo">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -212,6 +239,13 @@
                 <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
               </svg>
               <span>Reset</span>
+            </button>
+            <button class="avatar-action-btn" id="btn-remove-photo" title="Remove photo and show neutral initials placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>Remove</span>
             </button>
             <input type="file" id="profile-image-input" accept="image/*" aria-label="Upload profile image">
           </div>
@@ -239,12 +273,10 @@
           </p>
         </div>
 
-        <!-- Canvas Flow Animation -->
         <div class="journey-canvas-container" aria-label="Data Journey Flow Animation: DATA to ANALYSIS to INSIGHT">
           <canvas id="journey-canvas"></canvas>
         </div>
 
-        <!-- Interactive Journey Cards Grid -->
         <div class="journey-stages-grid">
           <!-- Stage 1: Data -->
           <div class="journey-card active" data-stage="0">
@@ -394,7 +426,6 @@
             </div>
 
             <div class="synergy-flow">
-              <!-- Web App Layer -->
               <div class="synergy-node">
                 <div class="node-title">
                   <span>Web Applications</span>
@@ -405,28 +436,24 @@
                 </div>
               </div>
 
-              <!-- Connecting Conduit -->
               <div class="synergy-bridge">
                 <div class="synergy-bridge-line"></div>
               </div>
 
-              <!-- Central Bridge Layer -->
               <div class="synergy-node" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.05);">
                 <div class="node-title">
                   <span>Full-Cycle Data Integration</span>
                   <span class="node-badge badge-bridge">Dual Advantage</span>
                 </div>
                 <div class="node-detail">
-                  Understanding both how software gathers data and how to extract intelligence from it gives end-to-end technical visibility.
+                  Understanding both how software gathers data and how to extract intelligence gives complete technical visibility.
                 </div>
               </div>
 
-              <!-- Connecting Conduit -->
               <div class="synergy-bridge">
                 <div class="synergy-bridge-line"></div>
               </div>
 
-              <!-- Analytics Layer -->
               <div class="synergy-node">
                 <div class="node-title">
                   <span>Data Analytics & BI</span>
@@ -462,7 +489,6 @@
           </p>
         </div>
 
-        <!-- Filter & Search Controls Bar -->
         <div class="skills-controls-bar">
           <div class="skills-filter-tabs">
             <button class="filter-tab active" data-filter="all">All Skills</button>
@@ -488,9 +514,7 @@
             </div>
             <span class="category-count" id="count-data-analytics">9 Technologies</span>
           </div>
-          <div class="skills-grid" id="grid-data-analytics">
-            <!-- Dynamically populated from data store -->
-          </div>
+          <div class="skills-grid" id="grid-data-analytics"></div>
         </div>
 
         <!-- Category 2: Web Development -->
@@ -502,9 +526,7 @@
             </div>
             <span class="category-count" id="count-web-dev">9 Technologies</span>
           </div>
-          <div class="skills-grid" id="grid-web-development">
-            <!-- Dynamically populated from data store -->
-          </div>
+          <div class="skills-grid" id="grid-web-development"></div>
         </div>
       </div>
     </section>
@@ -528,10 +550,7 @@
           </p>
         </div>
 
-        <!-- Dynamic Projects Container -->
-        <div class="projects-grid" id="projects-container">
-          <!-- Populated from PortfolioStore via app.js -->
-        </div>
+        <div class="projects-grid" id="projects-container"></div>
       </div>
     </section>
 
@@ -556,7 +575,7 @@
           </p>
         </div>
 
-        <!-- Five-Stage Analytical Workflow Banner -->
+        <!-- Five-Stage Pipeline Banner -->
         <div class="pipeline-banner" aria-label="Analytical Pipeline Stages">
           <div class="pipeline-stage">
             <span class="stage-number">01</span>
@@ -590,7 +609,6 @@
 
         <!-- Interactive Analytical Dashboard Frame -->
         <div class="analytics-dashboard-frame">
-          <!-- Dashboard Topbar -->
           <div class="dashboard-topbar">
             <div class="dashboard-title-group">
               <span class="db-indicator"></span>
@@ -598,7 +616,6 @@
             </div>
 
             <div class="dashboard-controls">
-              <!-- Dataset Selector -->
               <div class="db-select-wrapper">
                 <select id="analytics-dataset-select" class="db-select" aria-label="Select Dataset">
                   <option value="nss_activity">NSS Volunteer Attendance & Activity</option>
@@ -610,7 +627,6 @@
                 </svg>
               </div>
 
-              <!-- Timeframe Tabs -->
               <div class="db-timeframe-tabs">
                 <button class="time-btn active" data-timeframe="month">Monthly</button>
                 <button class="time-btn" data-timeframe="quarter">Quarterly</button>
@@ -619,7 +635,7 @@
             </div>
           </div>
 
-          <!-- KPI Metric Cards Grid -->
+          <!-- KPI Cards Grid -->
           <div class="dashboard-kpi-grid">
             <div class="kpi-card">
               <div class="kpi-label">Total Volume</div>
@@ -654,12 +670,19 @@
             </div>
           </div>
 
-          <!-- Main Chart & Insights Body -->
-          <div class="dashboard-body-grid">
-            <!-- Left Chart Card -->
-            <div class="chart-main-card">
+          <!-- Visuals Grid: Bar/Line Chart (Left) + Donut Chart (Right) -->
+          <div class="dashboard-visuals-grid">
+            <!-- Left: Bar / Line Chart -->
+            <div class="chart-card-box">
               <div class="chart-header">
-                <span class="chart-title">Visual Distribution & Trends</span>
+                <span class="chart-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan-primary);">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                  Activity & Metric Progression
+                </span>
                 <div class="chart-type-toggles">
                   <button class="chart-toggle-btn active" data-type="bar">Bar Chart</button>
                   <button class="chart-toggle-btn" data-type="line">Trend Line</button>
@@ -667,26 +690,63 @@
               </div>
 
               <div class="chart-canvas-wrapper">
-                <canvas id="analytics-chart-canvas" aria-label="Interactive Data Chart Canvas"></canvas>
+                <canvas id="analytics-chart-canvas" aria-label="Interactive Activity Chart"></canvas>
               </div>
             </div>
 
-            <!-- Right Insights Card -->
-            <div class="dashboard-side-card">
-              <div class="side-panel-title">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                <span>Analytical Takeaways</span>
+            <!-- Right: Donut Chart -->
+            <div class="chart-card-box">
+              <div class="chart-header">
+                <span class="chart-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--violet-primary);">
+                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                    <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                  </svg>
+                  Category Share (Donut Chart)
+                </span>
               </div>
 
-              <ul class="insights-list" id="analytics-insights-list">
-                <!-- Dynamically populated based on active dataset -->
-              </ul>
+              <div class="chart-canvas-wrapper">
+                <canvas id="analytics-donut-canvas" aria-label="Interactive Donut Chart"></canvas>
+              </div>
+
+              <div class="donut-legends-list" id="donut-legends-list"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Grid: Small Data Table (Left) + Analytical Takeaways (Right) -->
+          <div class="dashboard-details-grid">
+            <!-- Left: Small Data Table -->
+            <div class="data-table-card">
+              <div class="table-header-title">
+                <span>Sample Data Records & Validation Log</span>
+                <span class="mono" style="font-size: 0.72rem; color: var(--cyan-light);">Audit-Ready</span>
+              </div>
+
+              <div class="table-scroll-wrapper">
+                <table class="analytics-table">
+                  <thead>
+                    <tr>
+                      <th>Record ID</th>
+                      <th>Event / Item</th>
+                      <th>Category</th>
+                      <th>Metric</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="analytics-table-body">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Right: Takeaways -->
+            <div class="insights-card">
+              <div class="table-header-title" style="margin-bottom: 14px;">
+                <span>Analytical Takeaways</span>
+              </div>
+              <ul class="insights-list" id="analytics-insights-list"></ul>
             </div>
           </div>
         </div>
@@ -712,94 +772,40 @@
           </p>
         </div>
 
-        <div class="education-wrapper">
-          <!-- Main Education Card -->
-          <div class="education-main-card">
-            <div class="edu-degree-header">
-              <h3 class="edu-degree-title" id="edu-degree">Bachelor of Computer Applications (BCA)</h3>
-              <span class="edu-year-badge" id="edu-year">Graduation Year: 2026</span>
-            </div>
-
-            <div class="edu-college-name" id="edu-college">MES College</div>
-            <div class="edu-university-affil" id="edu-university">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                <path d="M2 17l10 5 10-5"></path>
-                <path d="M2 12l10 5 10-5"></path>
-              </svg>
-              <span>Affiliated with Calicut University</span>
-            </div>
-
-            <p class="edu-overview-text">
-              Comprehensive three-year computing degree with specialized focus on database administration, structured query languages, software system design, and algorithmic problem-solving.
-            </p>
-
-            <div class="edu-coursework-title">Key Subject Areas & Practical Focus</div>
-            <div class="edu-subjects-grid">
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Database Management Systems (DBMS & SQL)</span>
-              </div>
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Python Programming & Scripting</span>
-              </div>
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Data Structures & Algorithmic Analysis</span>
-              </div>
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Web Technologies & Application Systems</span>
-              </div>
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Probability & Mathematical Foundations</span>
-              </div>
-              <div class="edu-subject-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Software Engineering & Architecture</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Location & Overview Card -->
-          <div class="education-meta-card">
-            <div class="meta-block">
-              <div class="meta-title">Location</div>
-              <div class="meta-val" id="edu-location">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--cyan-primary);">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <span>Koyilandy, Kozhikode, Kerala, India</span>
-              </div>
-            </div>
-
-            <div class="meta-block">
-              <div class="meta-title">Current Objective</div>
-              <div class="meta-val">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--violet-primary);">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 14 14"></polyline>
-                </svg>
-                <span>Transitioning into Professional Data Analytics</span>
-              </div>
-            </div>
-
-            <div class="meta-block">
-              <div class="meta-title">Authenticity Standard</div>
-              <p style="font-size: 0.84375rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
-                Verified academic profile. Zero fabricated employment records or invented statistics. Focused on transparent competency and demonstrable project work.
-              </p>
-            </div>
-          </div>
+        <div class="education-timeline" id="education-timeline-container">
+          <!-- Populated dynamically from PortfolioStore -->
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
-         9. CONTACT SECTION
+         9. CURRENTLY LEARNING SECTION
+         Attractive learning-topic cards represented as active study topics
+         ====================================================================== -->
+    <section class="learning-section" id="learning">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span>Active Exploration</span>
+          </div>
+          <h2 class="section-title">Currently Learning</h2>
+          <p class="section-subtitle">
+            Key areas of analytical interest and emerging technical competencies currently being expanded through continuous study and practical problem-solving.
+          </p>
+        </div>
+
+        <div class="learning-grid" id="learning-topics-grid">
+          <!-- Populated dynamically from PortfolioStore -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         10. CONTACT SECTION ("Let's Connect")
          ====================================================================== -->
     <section class="contact-section" id="contact">
       <div class="container">
@@ -810,14 +816,13 @@
             </svg>
             <span>Let's Connect</span>
           </div>
-          <h2 class="section-title">Get In Touch</h2>
+          <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
             Open to internships, entry-level Data Analyst positions, junior web development roles, and collaborative opportunities.
           </p>
         </div>
 
         <div class="contact-grid">
-          <!-- Left Direct Contact Channels -->
           <div class="contact-info-col">
             <p class="contact-lead-text">
               Feel free to reach out directly via email, connect on LinkedIn, or send a message using the form. I typically respond within 24 hours.
@@ -863,8 +868,24 @@
                 </button>
               </div>
 
+              <!-- Phone Card -->
+              <a href="#" class="contact-channel-card" id="contact-phone-link">
+                <div class="channel-left">
+                  <div class="channel-icon" style="color: #10b981;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="channel-label">Phone</div>
+                    <div class="channel-value" id="contact-phone-val">Available upon request</div>
+                  </div>
+                </div>
+                <span class="btn-copy-chip">Call ↗</span>
+              </a>
+
               <!-- LinkedIn Card -->
-              <a href="https://www.linkedin.com/in/mohammed-abrar-vk" target="_blank" rel="noopener noreferrer" class="contact-channel-card" id="contact-linkedin-link">
+              <a href="https://www.linkedin.com/in/mohammed-abrar-vk" target="_blank" rel="noopener noreferrer" class="contact-channel-card" id="contact-linkedin-card">
                 <div class="channel-left">
                   <div class="channel-icon" style="color: #38bdf8;">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -879,6 +900,22 @@
                   </div>
                 </div>
                 <span class="btn-copy-chip">Connect ↗</span>
+              </a>
+
+              <!-- GitHub Card -->
+              <a href="#" target="_blank" rel="noopener noreferrer" class="contact-channel-card" id="contact-github-card" style="display: none;">
+                <div class="channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="channel-label">Source Code</div>
+                    <div class="channel-value">GitHub Profile</div>
+                  </div>
+                </div>
+                <span class="btn-copy-chip">View ↗</span>
               </a>
             </div>
 
@@ -896,14 +933,14 @@
             </div>
           </div>
 
-          <!-- Right Interactive Contact Form -->
+          <!-- Contact Form -->
           <div class="contact-form-card">
             <h3 class="form-title">Send a Direct Message</h3>
 
             <form class="contact-form" id="contact-form">
               <div class="form-group">
                 <label for="form-name" class="form-label">Your Name *</label>
-                <input type="text" id="form-name" class="form-input" placeholder="e.g. Rahul Sharma / Sarah Jenkins" required>
+                <input type="text" id="form-name" class="form-input" placeholder="e.g. Recruiter / Coordinator" required>
               </div>
 
               <div class="form-group">
@@ -912,13 +949,8 @@
               </div>
 
               <div class="form-group">
-                <label for="form-subject" class="form-label">Subject</label>
-                <input type="text" id="form-subject" class="form-input" placeholder="e.g. Internship Inquiry / Project Discussion">
-              </div>
-
-              <div class="form-group">
                 <label for="form-message" class="form-label">Message *</label>
-                <textarea id="form-message" class="form-textarea" placeholder="Hello Mohammed Abrar, I came across your portfolio and would like to discuss..." required></textarea>
+                <textarea id="form-message" class="form-textarea" placeholder="Hello Mohammed Abrar, I came across your portfolio and would like to connect..." required></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
@@ -936,7 +968,7 @@
   </main>
 
   <!-- ========================================================================
-       10. FOOTER
+       11. FOOTER
        ======================================================================== -->
   <footer class="footer">
     <div class="container">
@@ -951,6 +983,15 @@
           <p class="footer-tagline">
             BCA Graduate (2026) | Aspiring Data Analyst & Web Developer. Transforming raw tabular data into meaningful insights and building dependable web applications.
           </p>
+          <div class="footer-social-links">
+            <a href="https://www.linkedin.com/in/mohammed-abrar-vk" target="_blank" rel="noopener noreferrer" class="footer-icon-btn" title="LinkedIn Profile">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div class="footer-links-group">
@@ -969,8 +1010,8 @@
             <ul class="footer-nav-list">
               <li><a href="#analytics">Data Analytics</a></li>
               <li><a href="#education">Education</a></li>
+              <li><a href="#learning">Currently Learning</a></li>
               <li><a href="#contact">Contact</a></li>
-              <li><a href="#journey">Data Journey</a></li>
             </ul>
           </div>
         </div>
@@ -978,33 +1019,67 @@
 
       <div class="footer-bottom">
         <div>
-          © 2026 MOHAMMED ABRAR VK. Authentic BCA Portfolio. Built with clean HTML, CSS & JavaScript.
+          © 2026 MOHAMMED ABRAR VK. All Rights Reserved.
         </div>
 
-        <a href="#home" class="back-to-top">
-          <span>Back to Top</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        </a>
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <span class="footer-admin-link" id="btn-footer-admin-login" title="Admin Access">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Admin</span>
+          </span>
+
+          <a href="#home" class="back-to-top">
+            <span>Back to Top</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ========================================================================
-       11. FLOATING ACTION BUTTON (PORTFOLIO MANAGER)
-       ======================================================================== -->
-  <button class="fab-admin-trigger" id="fab-admin-trigger" title="Open Portfolio Content Manager (Shortcut: Ctrl+Shift+E)">
+  <!-- Floating Action Button for Authenticated Admin -->
+  <button class="fab-admin-trigger" id="fab-admin-trigger" title="Open Admin Panel">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <path d="M12 20h9"></path>
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
     </svg>
-    <span>Edit Portfolio</span>
+    <span>Admin Panel</span>
   </button>
 
   <!-- ========================================================================
-       12. ADMIN MANAGEMENT MODAL
-       Tabs: Skills, Projects, Profile Details, Backup/Reset
+       12. ADMIN LOGIN MODAL (SECURITY BARRIER)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="login-modal-box">
+      <button class="modal-close-btn" id="btn-close-login" style="position: absolute; top: 16px; right: 16px;">✕</button>
+      <div class="login-icon-ring">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h3 class="login-title" id="login-title">Admin Authentication</h3>
+      <p class="login-sub">Enter your security passkey to unlock portfolio management controls.</p>
+
+      <form id="admin-login-form">
+        <div class="form-group" style="margin-bottom: 18px; text-align: left;">
+          <label for="admin-passkey-input" class="form-label">Passkey</label>
+          <input type="password" id="admin-passkey-input" class="form-input" placeholder="Enter passkey (default: abrar2026)" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <span>Unlock Admin Panel</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       13. PRIVATE ADMIN MANAGEMENT MODAL (8 TABS)
        ======================================================================== -->
   <div class="modal-backdrop" id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="admin-modal-container">
@@ -1014,26 +1089,56 @@
             <path d="M12 20h9"></path>
             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
           </svg>
-          <h3 class="modal-title" id="modal-title">Portfolio Content Manager</h3>
+          <h3 class="modal-title" id="modal-title">Portfolio Admin Workspace</h3>
         </div>
         <button class="modal-close-btn" id="btn-modal-close" aria-label="Close modal">✕</button>
       </div>
 
-      <!-- Modal Tabs -->
+      <!-- 8 Admin Tabs -->
       <div class="admin-nav-tabs">
-        <button class="admin-tab-btn active" data-tab="skills">Manage Skills</button>
-        <button class="admin-tab-btn" data-tab="projects">Manage Projects</button>
-        <button class="admin-tab-btn" data-tab="profile">Profile & Links</button>
-        <button class="admin-tab-btn" data-tab="backup">Backup & Reset</button>
+        <button class="admin-tab-btn active" data-tab="profile">Profile</button>
+        <button class="admin-tab-btn" data-tab="skills">Skills</button>
+        <button class="admin-tab-btn" data-tab="projects">Projects</button>
+        <button class="admin-tab-btn" data-tab="education">Education</button>
+        <button class="admin-tab-btn" data-tab="learning">Currently Learning</button>
+        <button class="admin-tab-btn" data-tab="contact">Contact</button>
+        <button class="admin-tab-btn" data-tab="backup">Backup & Settings</button>
       </div>
 
       <div class="modal-body">
-        <!-- TAB 1: SKILLS -->
-        <div class="tab-pane active" id="tab-skills">
-          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Current Skills (Reorder & Edit)</h4>
-          <div class="admin-items-list" id="admin-skills-list">
-            <!-- Dynamically populated -->
-          </div>
+        <!-- TAB 1: PROFILE -->
+        <div class="tab-pane active" id="tab-profile">
+          <form class="admin-form" id="admin-profile-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="profile-input-name" class="form-label">Full Name</label>
+                <input type="text" id="profile-input-name" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="profile-input-title" class="form-label">Professional Title</label>
+                <input type="text" id="profile-input-title" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-input-summary" class="form-label">Professional Summary</label>
+              <input type="text" id="profile-input-summary" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-input-narrative" class="form-label">About Me Narrative</label>
+              <textarea id="profile-input-narrative" class="form-input" style="min-height: 90px;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm">Save Profile Changes</button>
+          </form>
+        </div>
+
+        <!-- TAB 2: SKILLS -->
+        <div class="tab-pane" id="tab-skills">
+          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Configured Skills</h4>
+          <div class="admin-items-list" id="admin-skills-list"></div>
 
           <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Skill</h4>
           <form class="admin-form" id="admin-skill-form">
@@ -1053,22 +1158,22 @@
             </div>
 
             <div class="form-group">
-              <label for="skill-input-desc" class="form-label">Short Description *</label>
-              <textarea id="skill-input-desc" class="form-input" style="min-height: 70px;" placeholder="Brief explanation of skill application..." required></textarea>
+              <label for="skill-input-desc" class="form-label">Description *</label>
+              <textarea id="skill-input-desc" class="form-input" style="min-height: 60px;" required></textarea>
             </div>
 
             <div class="form-group">
-              <label for="skill-input-icon" class="form-label">Icon Identifier</label>
+              <label for="skill-input-icon" class="form-label">Icon</label>
               <select id="skill-input-icon" class="form-input">
                 <option value="code">Code (Programming)</option>
-                <option value="database">Database (SQL / Stores)</option>
-                <option value="table">Table (Excel / Spreadsheets)</option>
-                <option value="chart">Chart (Power BI / Visuals)</option>
-                <option value="layers">Layers (Pandas / Stacks)</option>
-                <option value="cpu">CPU (NumPy / Numerical)</option>
-                <option value="filter">Filter (Data Cleaning)</option>
+                <option value="database">Database (SQL)</option>
+                <option value="table">Table (Excel)</option>
+                <option value="chart">Chart (Power BI)</option>
+                <option value="layers">Layers (Pandas)</option>
+                <option value="cpu">CPU (NumPy)</option>
+                <option value="filter">Filter (Cleaning)</option>
                 <option value="search">Search (EDA)</option>
-                <option value="pie-chart">Pie Chart (Visuals)</option>
+                <option value="pie-chart">Pie Chart (Viz)</option>
                 <option value="terminal">Terminal (JavaScript)</option>
                 <option value="atom">Atom (React)</option>
                 <option value="server">Server (Node)</option>
@@ -1080,24 +1185,22 @@
           </form>
         </div>
 
-        <!-- TAB 2: PROJECTS -->
+        <!-- TAB 3: PROJECTS -->
         <div class="tab-pane" id="tab-projects">
           <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Current Projects</h4>
-          <div class="admin-items-list" id="admin-projects-list">
-            <!-- Dynamically populated -->
-          </div>
+          <div class="admin-items-list" id="admin-projects-list"></div>
 
           <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Project</h4>
           <form class="admin-form" id="admin-project-form">
             <div class="admin-form-grid">
               <div class="form-group">
                 <label for="proj-input-title" class="form-label">Project Title *</label>
-                <input type="text" id="proj-input-title" class="form-input" placeholder="e.g. Sales Analysis Dashboard" required>
+                <input type="text" id="proj-input-title" class="form-input" required>
               </div>
 
               <div class="form-group">
                 <label for="proj-input-category" class="form-label">Category *</label>
-                <input type="text" id="proj-input-category" class="form-input" placeholder="e.g. Data Analytics" required>
+                <input type="text" id="proj-input-category" class="form-input" required>
               </div>
             </div>
 
@@ -1112,29 +1215,29 @@
 
               <div class="form-group">
                 <label for="proj-input-tech" class="form-label">Technologies (comma separated)</label>
-                <input type="text" id="proj-input-tech" class="form-input" placeholder="Python, SQL, Power BI">
+                <input type="text" id="proj-input-tech" class="form-input">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="proj-input-desc" class="form-label">Project Description *</label>
-              <textarea id="proj-input-desc" class="form-input" style="min-height: 80px;" placeholder="Comprehensive summary of what the project accomplishes..." required></textarea>
+              <label for="proj-input-desc" class="form-label">Description *</label>
+              <textarea id="proj-input-desc" class="form-input" style="min-height: 80px;" required></textarea>
             </div>
 
             <div class="admin-form-grid">
               <div class="form-group">
-                <label for="proj-input-github" class="form-label">GitHub Repository URL (Optional)</label>
-                <input type="url" id="proj-input-github" class="form-input" placeholder="Leave blank if not yet public">
+                <label for="proj-input-github" class="form-label">GitHub Repository URL</label>
+                <input type="url" id="proj-input-github" class="form-input">
               </div>
 
               <div class="form-group">
-                <label for="proj-input-live" class="form-label">Live Deployment URL (Optional)</label>
-                <input type="url" id="proj-input-live" class="form-input" placeholder="Leave blank if not yet deployed">
+                <label for="proj-input-live" class="form-label">Live Deployment URL</label>
+                <input type="url" id="proj-input-live" class="form-input">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="proj-input-image" class="form-label">Image Path or URL</label>
+              <label for="proj-input-image" class="form-label">Project Image Path or URL</label>
               <input type="text" id="proj-input-image" class="form-input" placeholder="assets/nss_preview.jpg">
             </div>
 
@@ -1142,95 +1245,173 @@
           </form>
         </div>
 
-        <!-- TAB 3: PROFILE & LINKS -->
-        <div class="tab-pane" id="tab-profile">
-          <form class="admin-form" id="admin-profile-form">
+        <!-- TAB 4: EDUCATION -->
+        <div class="tab-pane" id="tab-education">
+          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Configured Education</h4>
+          <div class="admin-items-list" id="admin-education-list"></div>
+
+          <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Education Entry</h4>
+          <form class="admin-form" id="admin-edu-form">
             <div class="admin-form-grid">
               <div class="form-group">
-                <label for="profile-input-name" class="form-label">Full Name</label>
-                <input type="text" id="profile-input-name" class="form-input">
+                <label for="edu-input-degree" class="form-label">Degree Title *</label>
+                <input type="text" id="edu-input-degree" class="form-input" placeholder="e.g. Master of Science in Data Analytics" required>
               </div>
 
               <div class="form-group">
-                <label for="profile-input-title" class="form-label">Professional Title</label>
-                <input type="text" id="profile-input-title" class="form-input">
+                <label for="edu-input-college" class="form-label">College / Institution *</label>
+                <input type="text" id="edu-input-college" class="form-input" placeholder="MES College" required>
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="edu-input-university" class="form-label">University / Board *</label>
+                <input type="text" id="edu-input-university" class="form-input" placeholder="Calicut University" required>
+              </div>
+
+              <div class="form-group">
+                <label for="edu-input-year" class="form-label">Graduation Year *</label>
+                <input type="text" id="edu-input-year" class="form-input" placeholder="2026" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="profile-input-summary" class="form-label">Professional Summary</label>
-              <input type="text" id="profile-input-summary" class="form-input">
+              <label for="edu-input-desc" class="form-label">Description *</label>
+              <textarea id="edu-input-desc" class="form-input" style="min-height: 70px;" required></textarea>
             </div>
 
-            <div class="admin-form-grid">
-              <div class="form-group">
-                <label for="profile-input-college" class="form-label">College</label>
-                <input type="text" id="profile-input-college" class="form-input">
-              </div>
-
-              <div class="form-group">
-                <label for="profile-input-university" class="form-label">University</label>
-                <input type="text" id="profile-input-university" class="form-input">
-              </div>
-            </div>
-
-            <div class="admin-form-grid">
-              <div class="form-group">
-                <label for="profile-input-year" class="form-label">Graduation Year</label>
-                <input type="text" id="profile-input-year" class="form-input">
-              </div>
-
-              <div class="form-group">
-                <label for="profile-input-location" class="form-label">Location</label>
-                <input type="text" id="profile-input-location" class="form-input">
-              </div>
-            </div>
-
-            <div class="admin-form-grid">
-              <div class="form-group">
-                <label for="profile-input-email" class="form-label">Email Address</label>
-                <input type="email" id="profile-input-email" class="form-input">
-              </div>
-
-              <div class="form-group">
-                <label for="profile-input-linkedin" class="form-label">LinkedIn URL</label>
-                <input type="url" id="profile-input-linkedin" class="form-input">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="profile-input-github" class="form-label">GitHub Profile URL (Optional)</label>
-              <input type="url" id="profile-input-github" class="form-input">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-sm">Save Profile Changes</button>
+            <button type="submit" class="btn btn-primary btn-sm" id="edu-form-submit-btn">Add Education Entry</button>
           </form>
         </div>
 
-        <!-- TAB 4: BACKUP & RESET -->
+        <!-- TAB 5: CURRENTLY LEARNING -->
+        <div class="tab-pane" id="tab-learning">
+          <h4 style="margin-bottom: 14px; font-size: 1rem; color: var(--cyan-light);">Active Learning Topics</h4>
+          <div class="admin-items-list" id="admin-learning-list"></div>
+
+          <h4 style="margin: 24px 0 14px 0; font-size: 1rem; color: var(--cyan-light);">Add / Edit Learning Topic</h4>
+          <form class="admin-form" id="admin-learn-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="learn-input-topic" class="form-label">Topic Name *</label>
+                <input type="text" id="learn-input-topic" class="form-input" placeholder="e.g. Machine Learning Basics" required>
+              </div>
+
+              <div class="form-group">
+                <label for="learn-input-cat" class="form-label">Category *</label>
+                <input type="text" id="learn-input-cat" class="form-input" placeholder="e.g. Statistical Modeling" required>
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="learn-input-status" class="form-label">Status Badge *</label>
+                <input type="text" id="learn-input-status" class="form-input" placeholder="e.g. Active Study" value="In Progress" required>
+              </div>
+
+              <div class="form-group">
+                <label for="learn-input-icon" class="form-label">Icon</label>
+                <select id="learn-input-icon" class="form-input">
+                  <option value="search">Search / Analytical</option>
+                  <option value="code">Code</option>
+                  <option value="database">Database</option>
+                  <option value="chart">Chart</option>
+                  <option value="table">Table</option>
+                  <option value="pie-chart">Pie Chart</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="learn-input-desc" class="form-label">Focus Description *</label>
+              <textarea id="learn-input-desc" class="form-input" style="min-height: 60px;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm" id="learn-form-submit-btn">Add Learning Topic</button>
+          </form>
+        </div>
+
+        <!-- TAB 6: CONTACT -->
+        <div class="tab-pane" id="tab-contact">
+          <form class="admin-form" id="admin-contact-form">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="contact-input-email" class="form-label">Email Address *</label>
+                <input type="email" id="contact-input-email" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-input-phone" class="form-label">Phone Number (Optional)</label>
+                <input type="text" id="contact-input-phone" class="form-input" placeholder="+91 ...">
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="contact-input-location" class="form-label">Location</label>
+                <input type="text" id="contact-input-location" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="contact-input-linkedin" class="form-label">LinkedIn Profile URL</label>
+                <input type="url" id="contact-input-linkedin" class="form-input">
+              </div>
+            </div>
+
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="contact-input-github" class="form-label">GitHub Profile URL</label>
+                <input type="url" id="contact-input-github" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="contact-input-endpoint" class="form-label">Form Backend / Email Webhook URL</label>
+                <input type="url" id="contact-input-endpoint" class="form-input" placeholder="e.g. Formspree / EmailJS / Custom API">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm">Save Contact Details</button>
+          </form>
+        </div>
+
+        <!-- TAB 7: BACKUP & SETTINGS -->
         <div class="tab-pane" id="tab-backup">
           <div style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Change Passkey -->
+            <form class="admin-form" id="admin-passkey-form">
+              <h4 style="color: var(--cyan-light);">Security: Change Admin Passkey</h4>
+              <div class="form-group">
+                <label for="settings-new-passkey" class="form-label">New Passkey</label>
+                <input type="password" id="settings-new-passkey" class="form-input" placeholder="Enter new passkey" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Update Passkey</button>
+            </form>
+
+            <!-- Export -->
             <div style="background: rgba(14, 23, 42, 0.6); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
               <h4 style="margin-bottom: 8px; color: var(--cyan-light);">Export Data Backup</h4>
               <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
-                Download all your customized skills, projects, and profile settings as a single portable JSON file.
+                Download all your customized skills, projects, education entries, and contact info as a portable JSON file.
               </p>
               <button class="btn btn-secondary btn-sm" id="btn-export-backup">Download JSON Backup</button>
             </div>
 
+            <!-- Import -->
             <div style="background: rgba(14, 23, 42, 0.6); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
               <h4 style="margin-bottom: 8px; color: var(--cyan-light);">Import Data Backup</h4>
               <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
-                Restore your portfolio data from a previously exported JSON backup file.
+                Restore portfolio state from an existing JSON backup file.
               </p>
               <button class="btn btn-secondary btn-sm" id="btn-import-backup">Upload JSON File</button>
               <input type="file" id="input-import-file" accept=".json" style="display: none;">
             </div>
 
+            <!-- Factory Reset -->
             <div style="background: rgba(244, 63, 94, 0.08); padding: 20px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
               <h4 style="margin-bottom: 8px; color: #fda4af;">Factory Reset</h4>
               <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">
-                Erase local modifications and restore Mohammed Abrar VK's original initial data structure.
+                Erase local browser modifications and restore initial portfolio configuration.
               </p>
               <button class="btn btn-sm" id="btn-reset-defaults" style="background: rgba(244, 63, 94, 0.25); border-color: var(--rose-accent); color: #fff;">
                 Reset All to Defaults
@@ -1242,7 +1423,7 @@
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
+  <!-- Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Scripts -->

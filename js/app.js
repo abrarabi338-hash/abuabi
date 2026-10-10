@@ -1,7 +1,7 @@
 /**
- * MOHAMMED ABRAR VK - MAIN PORTFOLIO CONTROLLER
+ * MOHAMMED ABRAR VK - PORTFOLIO CONTROLLER
  * Futuristic, production-quality portfolio logic with interactive data visualization,
- * journey animation, and comprehensive client-side administration.
+ * journey animation, currently learning topics, education timeline, and protected private admin panel.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,25 +11,30 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentDatasetKey = 'nss_activity';
   let currentTimeframe = 'month';
   let currentChartType = 'bar'; // 'bar' | 'line'
-  let isAdminMode = false;
+
+  // Admin Editing State
   let editingSkillId = null;
   let editingProjectId = null;
+  let editingEducationId = null;
+  let editingLearningId = null;
 
   // Initialize all modules
   initNavigation();
+  initAdminAuth();
   initHeroProfile();
   initDataJourneyCanvas();
   renderSkills();
   renderProjects();
   initAnalyticsShowcase();
-  initEducation();
-  initContactForm();
+  renderEducation();
+  renderLearning();
+  initContactSection();
   initAdminModal();
   initToasts();
 });
 
 /* ==========================================================================
-   1. NAVIGATION & SCROLL SPY
+   1. NAVIGATION & AUTH STATUS
    ========================================================================== */
 function initNavigation() {
   const navbar = document.getElementById('navbar');
@@ -37,7 +42,6 @@ function initNavigation() {
   const navMenu = document.getElementById('nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Sticky navbar on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 30) {
       navbar.classList.add('scrolled');
@@ -46,7 +50,6 @@ function initNavigation() {
     }
   }, { passive: true });
 
-  // Mobile hamburger toggle
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('open');
@@ -55,7 +58,6 @@ function initNavigation() {
       navToggle.setAttribute('aria-expanded', expanded);
     });
 
-    // Close menu when clicking any nav link
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('open');
@@ -65,14 +67,8 @@ function initNavigation() {
     });
   }
 
-  // Active section indicator using IntersectionObserver
+  // Active section indicator
   const sections = document.querySelectorAll('section[id]');
-  const observerOptions = {
-    root: null,
-    rootMargin: '-30% 0px -60% 0px',
-    threshold: 0
-  };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -86,30 +82,133 @@ function initNavigation() {
         });
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.25 });
 
   sections.forEach(sec => observer.observe(sec));
 }
 
 /* ==========================================================================
-   2. HERO SECTION & PROFILE AVATAR MANAGEMENT
+   2. PRIVATE ADMIN AUTHENTICATION (LOGIN / LOGOUT)
+   Protects editing controls from normal visitors
+   ========================================================================== */
+function initAdminAuth() {
+  const isAuth = PortfolioStore.isAdminAuthenticated();
+  updateAuthUI(isAuth);
+
+  const btnLoginNav = document.getElementById('btn-nav-admin-login');
+  const btnLoginFooter = document.getElementById('btn-footer-admin-login');
+  const loginModal = document.getElementById('admin-login-modal');
+  const btnCloseLogin = document.getElementById('btn-close-login');
+  const loginForm = document.getElementById('admin-login-form');
+  const btnLogout = document.getElementById('btn-admin-logout');
+
+  function openLoginModal() {
+    if (PortfolioStore.isAdminAuthenticated()) {
+      openAdminModal('profile');
+      return;
+    }
+    if (loginModal) {
+      loginModal.classList.add('open');
+      const passInput = document.getElementById('admin-passkey-input');
+      if (passInput) {
+        passInput.value = '';
+        passInput.focus();
+      }
+    }
+  }
+
+  function closeLoginModal() {
+    if (loginModal) loginModal.classList.remove('open');
+  }
+
+  if (btnLoginNav) btnLoginNav.addEventListener('click', openLoginModal);
+  if (btnLoginFooter) btnLoginFooter.addEventListener('click', openLoginModal);
+  if (btnCloseLogin) btnCloseLogin.addEventListener('click', closeLoginModal);
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = document.getElementById('admin-passkey-input').value.trim();
+      const correct = PortfolioStore.getAdminPasskey();
+
+      if (entered === correct) {
+        PortfolioStore.setAdminAuthenticated(true);
+        updateAuthUI(true);
+        closeLoginModal();
+        showToast('Admin access verified. Welcome Mohammed Abrar VK!', 'success');
+        openAdminModal('profile');
+      } else {
+        showToast('Invalid admin passkey. Please check your credentials.', 'error');
+        const passInput = document.getElementById('admin-passkey-input');
+        if (passInput) {
+          passInput.style.borderColor = 'var(--rose-accent)';
+          passInput.focus();
+        }
+      }
+    });
+  }
+
+  if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+      PortfolioStore.setAdminAuthenticated(false);
+      updateAuthUI(false);
+      const adminModal = document.getElementById('admin-modal');
+      if (adminModal) adminModal.classList.remove('open');
+      showToast('Logged out of admin mode.', 'info');
+    });
+  }
+
+  // Keyboard shortcut Ctrl+Shift+L to trigger admin login
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'l') {
+      e.preventDefault();
+      if (PortfolioStore.isAdminAuthenticated()) {
+        openAdminModal('profile');
+      } else {
+        openLoginModal();
+      }
+    }
+  });
+}
+
+function updateAuthUI(isAuthenticated) {
+  if (isAuthenticated) {
+    document.body.classList.add('admin-authenticated');
+  } else {
+    document.body.classList.remove('admin-authenticated');
+  }
+}
+
+/* ==========================================================================
+   3. HERO PROFILE & IMAGE MANAGEMENT
    ========================================================================== */
 function initHeroProfile() {
   const profile = PortfolioStore.getProfile();
   const avatarUrl = PortfolioStore.getAvatar();
 
-  // Populate hero text
   const heroNameEl = document.getElementById('hero-name');
   const heroTitleEl = document.getElementById('hero-title');
   const heroSummaryEl = document.getElementById('hero-summary');
   const avatarImgEl = document.getElementById('profile-avatar-img');
+  const avatarPlaceholderBox = document.getElementById('avatar-placeholder-box');
 
   if (heroNameEl) heroNameEl.textContent = profile.name;
   if (heroTitleEl) {
     heroTitleEl.innerHTML = `Aspiring Data Analyst <span class="divider-slash">|</span> Web Developer`;
   }
   if (heroSummaryEl) heroSummaryEl.textContent = profile.summary;
-  if (avatarImgEl) avatarImgEl.src = avatarUrl;
+
+  // Avatar Image display
+  if (avatarUrl) {
+    if (avatarImgEl) {
+      avatarImgEl.src = avatarUrl;
+      avatarImgEl.style.display = 'block';
+    }
+    if (avatarPlaceholderBox) avatarPlaceholderBox.style.display = 'none';
+  } else {
+    if (avatarImgEl) avatarImgEl.style.display = 'none';
+    if (avatarPlaceholderBox) avatarPlaceholderBox.style.display = 'flex';
+  }
 
   // Avatar file input handler (Upload own profile photo)
   const fileInput = document.getElementById('profile-image-input');
@@ -136,7 +235,11 @@ function initHeroProfile() {
       reader.onload = (event) => {
         const base64Url = event.target.result;
         PortfolioStore.saveAvatar(base64Url);
-        if (avatarImgEl) avatarImgEl.src = base64Url;
+        if (avatarImgEl) {
+          avatarImgEl.src = base64Url;
+          avatarImgEl.style.display = 'block';
+        }
+        if (avatarPlaceholderBox) avatarPlaceholderBox.style.display = 'none';
         showToast('Profile image updated successfully!', 'success');
       };
       reader.readAsDataURL(file);
@@ -146,14 +249,18 @@ function initHeroProfile() {
   if (btnReset) {
     btnReset.addEventListener('click', () => {
       PortfolioStore.resetAvatar();
-      if (avatarImgEl) avatarImgEl.src = 'assets/abrar_profile.jpg';
+      if (avatarImgEl) {
+        avatarImgEl.src = 'assets/abrar_profile.jpg';
+        avatarImgEl.style.display = 'block';
+      }
+      if (avatarPlaceholderBox) avatarPlaceholderBox.style.display = 'none';
       showToast('Profile photo restored to default.', 'success');
     });
   }
 }
 
 /* ==========================================================================
-   3. DATA JOURNEY ANIMATED VISUALIZATION (CANVAS + NODES)
+   4. DATA JOURNEY ANIMATED VISUALIZATION (CANVAS)
    DATA ➔ ANALYSIS ➔ INSIGHT
    ========================================================================== */
 function initDataJourneyCanvas() {
@@ -166,7 +273,6 @@ function initDataJourneyCanvas() {
   let particles = [];
   const particleCount = 45;
 
-  // High-DPI Canvas sizing
   function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -178,7 +284,6 @@ function initDataJourneyCanvas() {
     initParticles();
   }
 
-  // Stages coordinates across the canvas
   function getStagePositions() {
     return [
       { x: width * 0.16, y: height * 0.5, name: 'DATA', color: '#00f2fe' },
@@ -187,11 +292,10 @@ function initDataJourneyCanvas() {
     ];
   }
 
-  // Particle Class
   class JourneyParticle {
     constructor() {
       this.reset();
-      this.progress = Math.random(); // Start somewhere along path
+      this.progress = Math.random();
     }
 
     reset() {
@@ -199,7 +303,7 @@ function initDataJourneyCanvas() {
       this.speed = 0.003 + Math.random() * 0.004;
       this.yOffset = (Math.random() - 0.5) * 36;
       this.size = 1.8 + Math.random() * 2.2;
-      this.stage = Math.random() < 0.5 ? 0 : 1; // 0: DATA->ANALYSIS, 1: ANALYSIS->INSIGHT
+      this.stage = Math.random() < 0.5 ? 0 : 1;
       this.pulse = Math.random() * Math.PI;
     }
 
@@ -220,16 +324,13 @@ function initDataJourneyCanvas() {
       const p0 = stages[this.stage];
       const p1 = stages[this.stage + 1];
 
-      // Interpolate along curved Bezier conduit
       const t = this.progress;
       const cpX = (p0.x + p1.x) / 2;
       const cpY = (p0.y + p1.y) / 2 + (this.stage === 0 ? -20 : 20);
 
-      // Quadratic bezier point
       const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * cpX + t * t * p1.x;
       const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * cpY + t * t * p1.y + Math.sin(this.pulse) * 4 + this.yOffset * (1 - Math.abs(0.5 - t) * 2);
 
-      // Particle color blending based on progress
       const color = this.stage === 0 ? 'rgba(0, 242, 254, ' : 'rgba(129, 140, 248, ';
       const alpha = Math.sin(t * Math.PI) * 0.85 + 0.15;
 
@@ -250,14 +351,13 @@ function initDataJourneyCanvas() {
     }
   }
 
-  // Animation Loop
   let pulseTimer = 0;
   function render() {
     ctx.clearRect(0, 0, width, height);
     const stages = getStagePositions();
     pulseTimer += 0.03;
 
-    // Draw conduit pathways (fine lines with subtle gradient)
+    // Draw conduits
     for (let i = 0; i < 2; i++) {
       const p0 = stages[i];
       const p1 = stages[i + 1];
@@ -274,23 +374,19 @@ function initDataJourneyCanvas() {
       ctx.setLineDash([]);
     }
 
-    // Update and draw flowing particles
     particles.forEach(p => {
       p.update();
       p.draw(stages);
     });
 
-    // Draw Stage Nodes
     stages.forEach((node, idx) => {
       const pulseSize = Math.sin(pulseTimer + idx * 1.5) * 3;
 
-      // Outer glow circle
       ctx.beginPath();
       ctx.arc(node.x, node.y, 24 + pulseSize, 0, Math.PI * 2);
       ctx.fillStyle = `${node.color}15`;
       ctx.fill();
 
-      // Middle ring
       ctx.beginPath();
       ctx.arc(node.x, node.y, 16, 0, Math.PI * 2);
       ctx.strokeStyle = node.color;
@@ -300,32 +396,27 @@ function initDataJourneyCanvas() {
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Inner core
       ctx.beginPath();
       ctx.arc(node.x, node.y, 7, 0, Math.PI * 2);
       ctx.fillStyle = node.color;
       ctx.fill();
 
-      // Node Label
       ctx.font = '700 12px "JetBrains Mono", monospace';
       ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'center';
       ctx.fillText(node.name, node.x, node.y + 42);
     });
 
-    // Check user reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReducedMotion) {
       animationFrameId = requestAnimationFrame(render);
     }
   }
 
-  // Initialize
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
   render();
 
-  // Interactive Stage Cards Sync
   const journeyCards = document.querySelectorAll('.journey-card');
   journeyCards.forEach((card, idx) => {
     card.addEventListener('mouseenter', () => {
@@ -336,7 +427,7 @@ function initDataJourneyCanvas() {
 }
 
 /* ==========================================================================
-   4. SKILLS & TECHNOLOGIES RENDERING & FILTERING
+   5. SKILLS & TECHNOLOGIES
    ========================================================================== */
 const SKILL_ICONS = {
   code: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
@@ -372,12 +463,10 @@ function renderSkills() {
 
   if (!analyticsGrid || !webGrid) return;
 
-  // Filter skills based on search and active tab
   const filterFn = (skill) => {
-    const matchesSearch = !skillSearchQuery || 
+    return !skillSearchQuery || 
       skill.name.toLowerCase().includes(skillSearchQuery.toLowerCase()) || 
       skill.description.toLowerCase().includes(skillSearchQuery.toLowerCase());
-    return matchesSearch;
   };
 
   const analyticsSkills = allSkills.filter(s => s.category === 'data-analytics' && filterFn(s));
@@ -386,7 +475,6 @@ function renderSkills() {
   if (countAnalytics) countAnalytics.textContent = `${analyticsSkills.length} Technologies`;
   if (countWeb) countWeb.textContent = `${webSkills.length} Technologies`;
 
-  // Visibility based on filter tab
   if (currentSkillFilter === 'data-analytics') {
     if (blockAnalytics) blockAnalytics.style.display = 'block';
     if (blockWeb) blockWeb.style.display = 'none';
@@ -398,7 +486,6 @@ function renderSkills() {
     if (blockWeb) blockWeb.style.display = 'block';
   }
 
-  // Render Card HTML
   function createSkillCardHTML(skill) {
     const iconSVG = SKILL_ICONS[skill.icon] || SKILL_ICONS.code;
     const catLabel = skill.category === 'data-analytics' ? 'Data Analytics' : 'Web Dev';
@@ -413,11 +500,11 @@ function renderSkills() {
         </div>
         <h4 class="skill-name">${skill.name}</h4>
         <p class="skill-desc">${skill.description}</p>
-        <div class="skill-item-actions">
-          <button class="skill-act-btn" onclick="openEditSkillModal('${skill.id}')">Edit</button>
-          <button class="skill-act-btn btn-del" onclick="handleDeleteSkill('${skill.id}')">Delete</button>
-          <button class="skill-act-btn" onclick="handleMoveSkill('${skill.id}', -1)" title="Move Up">↑</button>
-          <button class="skill-act-btn" onclick="handleMoveSkill('${skill.id}', 1)" title="Move Down">↓</button>
+        <div class="card-admin-actions">
+          <button class="card-act-btn" onclick="openEditSkillModal('${skill.id}')">Edit</button>
+          <button class="card-act-btn del" onclick="handleDeleteSkill('${skill.id}')">Delete</button>
+          <button class="card-act-btn" onclick="handleMoveSkill('${skill.id}', -1)" title="Move Up">↑</button>
+          <button class="card-act-btn" onclick="handleMoveSkill('${skill.id}', 1)" title="Move Down">↓</button>
         </div>
       </div>
     `;
@@ -426,7 +513,6 @@ function renderSkills() {
   analyticsGrid.innerHTML = analyticsSkills.map(createSkillCardHTML).join('') || `<p class="text-muted" style="grid-column: 1/-1; padding: 20px 0;">No matching analytics skills found.</p>`;
   webGrid.innerHTML = webSkills.map(createSkillCardHTML).join('') || `<p class="text-muted" style="grid-column: 1/-1; padding: 20px 0;">No matching web skills found.</p>`;
 
-  // Filter tabs click handlers
   filterTabs.forEach(tab => {
     tab.onclick = () => {
       filterTabs.forEach(t => t.classList.remove('active'));
@@ -436,7 +522,6 @@ function renderSkills() {
     };
   });
 
-  // Search input handler
   if (searchInput && !searchInput.dataset.initialized) {
     searchInput.dataset.initialized = 'true';
     searchInput.addEventListener('input', (e) => {
@@ -447,7 +532,7 @@ function renderSkills() {
 }
 
 /* ==========================================================================
-   5. FEATURED PROJECTS RENDERING
+   6. FEATURED PROJECTS
    ========================================================================== */
 function renderProjects() {
   const projects = PortfolioStore.getProjects();
@@ -459,10 +544,8 @@ function renderProjects() {
     const statusClass = isCompleted ? 'status-completed' : 'status-coming-soon';
     const statusBadge = proj.statusBadge || proj.status;
 
-    // Tech tags
     const tagsHTML = (proj.technologies || []).map(t => `<span class="tech-tag">${t}</span>`).join('');
 
-    // Feature items
     const featuresHTML = (proj.features || []).map(f => `
       <li class="feature-item">
         <svg class="feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -470,7 +553,6 @@ function renderProjects() {
       </li>
     `).join('');
 
-    // Role modules (Admin, Coordinator, User) for Project 1 or custom projects
     let roleModulesHTML = '';
     if (proj.roleModules) {
       roleModulesHTML = `
@@ -491,7 +573,6 @@ function renderProjects() {
       `;
     }
 
-    // Action buttons: If URLs empty, render disabled buttons per user prompt requirements!
     const githubBtn = proj.githubUrl && proj.githubUrl.trim() !== ''
       ? `<a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
@@ -542,9 +623,10 @@ function renderProjects() {
           <div class="project-actions">
             ${githubBtn}
             ${liveBtn}
-            <button class="btn btn-outline-cyan btn-sm" onclick="openEditProjectModal('${proj.id}')" style="display: ${isAdminMode ? 'inline-flex' : 'none'};">
-              Edit Project
-            </button>
+            <div class="card-admin-actions" style="margin-top: 0; padding-top: 0; border-top: none;">
+              <button class="card-act-btn" onclick="openEditProjectModal('${proj.id}')">Edit</button>
+              <button class="card-act-btn del" onclick="handleDeleteProject('${proj.id}')">Delete</button>
+            </div>
           </div>
         </div>
       </article>
@@ -552,7 +634,6 @@ function renderProjects() {
   }).join('');
 }
 
-// Global switch for Role-based Module Tabs
 window.switchRoleTab = function(projId, roleKey, btnEl) {
   const projects = PortfolioStore.getProjects();
   const proj = projects.find(p => p.id === projId);
@@ -572,7 +653,8 @@ window.switchRoleTab = function(projId, roleKey, btnEl) {
 };
 
 /* ==========================================================================
-   6. DATA ANALYTICS SHOWCASE (INTERACTIVE ENGINE & CANVASES)
+   7. DATA ANALYTICS SHOWCASE (EXPANDED DASHBOARD)
+   Bar Chart + Line Chart + Donut Chart + KPI Cards + Small Data Table
    ========================================================================== */
 function initAnalyticsShowcase() {
   const datasetSelect = document.getElementById('analytics-dataset-select');
@@ -600,12 +682,15 @@ function initAnalyticsShowcase() {
       chartToggleBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentChartType = btn.getAttribute('data-type');
-      renderAnalyticsChart();
+      renderMainAnalyticsChart();
     });
   });
 
   updateAnalyticsDashboard();
-  window.addEventListener('resize', () => renderAnalyticsChart());
+  window.addEventListener('resize', () => {
+    renderMainAnalyticsChart();
+    renderDonutChart();
+  });
 }
 
 function updateAnalyticsDashboard() {
@@ -615,18 +700,18 @@ function updateAnalyticsDashboard() {
   const tfData = dataset.timeframes[currentTimeframe];
   if (!tfData) return;
 
-  // Update KPI card metrics
+  // KPI Metrics
   const kpiTotal = document.getElementById('kpi-total-val');
   const kpiAvg = document.getElementById('kpi-avg-val');
   const kpiClean = document.getElementById('kpi-clean-val');
   const kpiTrend = document.getElementById('kpi-trend-val');
 
-  if (kpiTotal) kpiTotal.textContent = tfData.kpis.total;
-  if (kpiAvg) kpiAvg.textContent = tfData.kpis.avg;
-  if (kpiClean) kpiClean.textContent = tfData.kpis.cleanRate;
-  if (kpiTrend) kpiTrend.textContent = tfData.kpis.trend;
+  if (kpiTotal) kpiTotal.textContent = tfData.kpis.totalVolume;
+  if (kpiAvg) kpiAvg.textContent = tfData.kpis.avgMetric;
+  if (kpiClean) kpiClean.textContent = tfData.kpis.hygieneRate;
+  if (kpiTrend) kpiTrend.textContent = tfData.kpis.trendRate;
 
-  // Update Insights list
+  // Analytical Takeaways
   const insightsList = document.getElementById('analytics-insights-list');
   if (insightsList && tfData.insights) {
     insightsList.innerHTML = tfData.insights.map((ins, i) => `
@@ -637,12 +722,27 @@ function updateAnalyticsDashboard() {
     `).join('');
   }
 
-  // Render Chart Canvas
-  renderAnalyticsChart();
+  // Small Data Table
+  const tableBody = document.getElementById('analytics-table-body');
+  if (tableBody && tfData.sampleTable) {
+    tableBody.innerHTML = tfData.sampleTable.map(row => `
+      <tr>
+        <td class="mono" style="color: var(--cyan-light); font-weight: 700;">${row.id}</td>
+        <td style="font-weight: 600;">${row.event}</td>
+        <td><span style="color: var(--text-secondary);">${row.category}</span></td>
+        <td class="mono" style="color: #ffffff; font-weight: 600;">${row.metric}</td>
+        <td><span class="table-badge">${row.status}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Visuals
+  renderMainAnalyticsChart();
+  renderDonutChart();
 }
 
-// Standalone, high-fidelity responsive Canvas Chart Renderer
-function renderAnalyticsChart() {
+// 1. Main Bar / Line Chart Renderer
+function renderMainAnalyticsChart() {
   const canvas = document.getElementById('analytics-chart-canvas');
   if (!canvas) return;
 
@@ -660,14 +760,14 @@ function renderAnalyticsChart() {
   const dataset = ANALYTICS_DATASETS[currentDatasetKey];
   const tfData = dataset.timeframes[currentTimeframe];
   const labels = tfData.labels;
-  const values = tfData.data;
+  const values = currentChartType === 'bar' ? tfData.barData : tfData.lineData;
   const maxVal = Math.max(...values) * 1.25;
 
-  const padding = { top: 30, right: 30, bottom: 45, left: 50 };
+  const padding = { top: 25, right: 25, bottom: 40, left: 45 };
   const chartW = w - padding.left - padding.right;
   const chartH = h - padding.top - padding.bottom;
 
-  // Draw Horizontal Gridlines
+  // Gridlines
   const gridLines = 4;
   ctx.font = '11px "JetBrains Mono", monospace';
   ctx.fillStyle = '#64748b';
@@ -687,12 +787,10 @@ function renderAnalyticsChart() {
     ctx.fillText(`${yVal}`, padding.left - 10, y + 4);
   }
 
-  // Draw X Axis Labels
   ctx.textAlign = 'center';
   const step = chartW / labels.length;
 
   if (currentChartType === 'bar') {
-    // Render Bars
     const barWidth = Math.min(step * 0.55, 48);
 
     values.forEach((val, i) => {
@@ -700,12 +798,10 @@ function renderAnalyticsChart() {
       const barH = (val / maxVal) * chartH;
       const y = padding.top + chartH - barH;
 
-      // Gradient bar fill
       const grad = ctx.createLinearGradient(0, y, 0, y + barH);
       grad.addColorStop(0, '#00f2fe');
       grad.addColorStop(1, '#6366f1');
 
-      // Rounded Top Bar
       ctx.beginPath();
       const radius = 6;
       ctx.moveTo(x, y + barH);
@@ -722,25 +818,22 @@ function renderAnalyticsChart() {
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      // Bar Value on top
       ctx.fillStyle = '#ffffff';
       ctx.font = '600 11px "JetBrains Mono", monospace';
       ctx.fillText(val, x + barWidth / 2, y - 8);
 
-      // Label below
       ctx.fillStyle = '#94a3b8';
       ctx.font = '500 11px "Plus Jakarta Sans", sans-serif';
       ctx.fillText(labels[i], x + barWidth / 2, h - padding.bottom + 22);
     });
   } else {
-    // Render Smooth Trend Line
+    // Trend Line
     const points = values.map((val, i) => {
       const x = padding.left + step * i + step / 2;
       const y = padding.top + chartH - (val / maxVal) * chartH;
       return { x, y, val, label: labels[i] };
     });
 
-    // Area Fill Gradient below line
     const areaGrad = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartH);
     areaGrad.addColorStop(0, 'rgba(0, 242, 254, 0.3)');
     areaGrad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
@@ -750,10 +843,8 @@ function renderAnalyticsChart() {
     ctx.lineTo(points[0].x, points[0].y);
 
     for (let i = 0; i < points.length - 1; i++) {
-      const pCurrent = points[i];
-      const pNext = points[i + 1];
-      const cpX = (pCurrent.x + pNext.x) / 2;
-      ctx.bezierCurveTo(cpX, pCurrent.y, cpX, pNext.y, pNext.x, pNext.y);
+      const cpX = (points[i].x + points[i + 1].x) / 2;
+      ctx.bezierCurveTo(cpX, points[i].y, cpX, points[i + 1].y, points[i + 1].x, points[i + 1].y);
     }
 
     ctx.lineTo(points[points.length - 1].x, padding.top + chartH);
@@ -761,23 +852,19 @@ function renderAnalyticsChart() {
     ctx.fillStyle = areaGrad;
     ctx.fill();
 
-    // Line Path
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 0; i < points.length - 1; i++) {
-      const pCurrent = points[i];
-      const pNext = points[i + 1];
-      const cpX = (pCurrent.x + pNext.x) / 2;
-      ctx.bezierCurveTo(cpX, pCurrent.y, cpX, pNext.y, pNext.x, pNext.y);
+      const cpX = (points[i].x + points[i + 1].x) / 2;
+      ctx.bezierCurveTo(cpX, points[i].y, cpX, points[i + 1].y, points[i + 1].x, points[i + 1].y);
     }
     ctx.strokeStyle = '#00f2fe';
     ctx.lineWidth = 3;
     ctx.shadowColor = '#00f2fe';
-    ctx.shadowBlur = 12;
+    ctx.shadowBlur = 10;
     ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // Dots and Data values
     points.forEach(pt => {
       ctx.beginPath();
       ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
@@ -798,94 +885,291 @@ function renderAnalyticsChart() {
   }
 }
 
-/* ==========================================================================
-   7. EDUCATION & CONTACT SECTION
-   ========================================================================== */
-function initEducation() {
-  const profile = PortfolioStore.getProfile();
-  const eduDegree = document.getElementById('edu-degree');
-  const eduCollege = document.getElementById('edu-college');
-  const eduUniversity = document.getElementById('edu-university');
-  const eduYear = document.getElementById('edu-year');
-  const eduLocation = document.getElementById('edu-location');
+// 2. Donut Chart Renderer
+function renderDonutChart() {
+  const canvas = document.getElementById('analytics-donut-canvas');
+  if (!canvas) return;
 
-  if (eduDegree) eduDegree.textContent = profile.education;
-  if (eduCollege) eduCollege.textContent = profile.college;
-  if (eduUniversity) eduUniversity.textContent = `Affiliated with ${profile.university}`;
-  if (eduYear) eduYear.textContent = `Graduation Year: ${profile.graduationYear}`;
-  if (eduLocation) eduLocation.textContent = profile.location;
+  const ctx = canvas.getContext('2d');
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const w = rect.width;
+  const h = rect.height;
+
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+
+  const dataset = ANALYTICS_DATASETS[currentDatasetKey];
+  const tfData = dataset.timeframes[currentTimeframe];
+  const donutData = tfData.donutData || [];
+
+  const total = donutData.reduce((acc, curr) => acc + curr.value, 0);
+  const centerX = w / 2;
+  const centerY = h / 2 - 10;
+  const outerRadius = Math.min(centerX, centerY) - 16;
+  const innerRadius = outerRadius * 0.65;
+
+  let currentAngle = -Math.PI / 2;
+
+  donutData.forEach(slice => {
+    const sliceAngle = (slice.value / total) * (Math.PI * 2);
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, outerRadius, currentAngle, currentAngle + sliceAngle);
+    ctx.arc(centerX, centerY, innerRadius, currentAngle + sliceAngle, currentAngle, true);
+    ctx.closePath();
+
+    ctx.fillStyle = slice.color;
+    ctx.shadowColor = slice.color;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    currentAngle += sliceAngle;
+  });
+
+  // Center Text in Donut
+  ctx.font = '800 18px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.fillText('100%', centerX, centerY + 2);
+
+  ctx.font = '600 10px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('DISTRIBUTION', centerX, centerY + 18);
+
+  // Donut Legends below
+  const legendsList = document.getElementById('donut-legends-list');
+  if (legendsList) {
+    legendsList.innerHTML = donutData.map(slice => {
+      const pct = Math.round((slice.value / total) * 100);
+      return `
+        <div class="donut-legend-item">
+          <div>
+            <span class="legend-color-dot" style="background-color: ${slice.color};"></span>
+            <span>${slice.label}</span>
+          </div>
+          <span class="mono" style="color: #ffffff; font-weight: 700;">${pct}%</span>
+        </div>
+      `;
+    }).join('');
+  }
 }
 
-function initContactForm() {
-  const profile = PortfolioStore.getProfile();
-  const contactEmailVal = document.getElementById('contact-email-val');
-  const contactLocationVal = document.getElementById('contact-location-val');
-  const contactLinkedinLink = document.getElementById('contact-linkedin-link');
-  const contactForm = document.getElementById('contact-form');
+/* ==========================================================================
+   8. EDUCATION SECTION (TIMELINE)
+   ========================================================================== */
+function renderEducation() {
+  const educationList = PortfolioStore.getEducation();
+  const container = document.getElementById('education-timeline-container');
+  if (!container) return;
+
+  container.innerHTML = educationList.map(item => `
+    <div class="edu-timeline-card" id="${item.id}">
+      <div class="edu-degree-header">
+        <h3 class="edu-degree-title">${item.degree}</h3>
+        <span class="edu-year-badge">${item.status || `Graduation: ${item.graduationYear}`}</span>
+      </div>
+
+      <div class="edu-college-name">${item.college}</div>
+      <div class="edu-university-affil">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+        <span>Affiliated with ${item.university}</span>
+      </div>
+
+      <p class="edu-overview-text">${item.description}</p>
+
+      <div class="edu-coursework-title">Curricular Scope & Practical Competencies</div>
+      <div class="edu-subjects-grid">
+        ${(item.subjects || []).map(s => `
+          <div class="edu-subject-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>${s}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="card-admin-actions" style="margin-top: 24px;">
+        <button class="card-act-btn" onclick="openEditEducationModal('${item.id}')">Edit Education</button>
+        <button class="card-act-btn del" onclick="handleDeleteEducation('${item.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ==========================================================================
+   9. CURRENTLY LEARNING SECTION
+   Learning topics represented as active interests (Not certifications)
+   ========================================================================== */
+function renderLearning() {
+  const topics = PortfolioStore.getLearning();
+  const grid = document.getElementById('learning-topics-grid');
+  if (!grid) return;
+
+  grid.innerHTML = topics.map(item => {
+    const iconSVG = SKILL_ICONS[item.icon] || SKILL_ICONS.search;
+    return `
+      <div class="learning-card" data-id="${item.id}">
+        <div class="learning-card-top">
+          <div class="learning-icon-box">
+            ${iconSVG}
+          </div>
+          <span class="learning-status-pill">${item.status}</span>
+        </div>
+        <h4 class="learning-topic-title">${item.topic}</h4>
+        <div class="learning-cat-label">${item.category}</div>
+        <p class="learning-desc">${item.description}</p>
+        <div class="card-admin-actions">
+          <button class="card-act-btn" onclick="openEditLearningModal('${item.id}')">Edit</button>
+          <button class="card-act-btn del" onclick="handleDeleteLearning('${item.id}')">Delete</button>
+          <button class="card-act-btn" onclick="handleMoveLearning('${item.id}', -1)">↑</button>
+          <button class="card-act-btn" onclick="handleMoveLearning('${item.id}', 1)">↓</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ==========================================================================
+   10. CONTACT SECTION ("Let's Connect")
+   ========================================================================== */
+function initContactSection() {
+  const contact = PortfolioStore.getContact();
+
+  const emailVal = document.getElementById('contact-email-val');
+  const phoneVal = document.getElementById('contact-phone-val');
+  const locationVal = document.getElementById('contact-location-val');
+  const linkedinCard = document.getElementById('contact-linkedin-card');
+  const githubCard = document.getElementById('contact-github-card');
   const btnCopyEmail = document.getElementById('btn-copy-email');
+  const contactForm = document.getElementById('contact-form');
 
-  if (contactEmailVal) contactEmailVal.textContent = profile.email;
-  if (contactLocationVal) contactLocationVal.textContent = profile.location;
-  if (contactLinkedinLink && profile.linkedinUrl) contactLinkedinLink.href = profile.linkedinUrl;
+  if (emailVal) emailVal.textContent = contact.email;
+  if (locationVal) locationVal.textContent = contact.location;
 
-  // Copy email to clipboard
+  // Phone config
+  if (phoneVal) {
+    if (contact.phone && contact.phone.trim() !== '') {
+      phoneVal.textContent = contact.phone;
+      const phoneLink = document.getElementById('contact-phone-link');
+      if (phoneLink) phoneLink.href = `tel:${contact.phone}`;
+    } else {
+      phoneVal.textContent = 'Available upon request';
+      const phoneLink = document.getElementById('contact-phone-link');
+      if (phoneLink) phoneLink.removeAttribute('href');
+    }
+  }
+
+  // LinkedIn link
+  if (linkedinCard) {
+    if (contact.linkedinUrl && contact.linkedinUrl.trim() !== '') {
+      linkedinCard.href = contact.linkedinUrl;
+      linkedinCard.style.display = 'flex';
+    } else {
+      linkedinCard.style.display = 'none';
+    }
+  }
+
+  // GitHub link
+  if (githubCard) {
+    if (contact.githubUrl && contact.githubUrl.trim() !== '') {
+      githubCard.href = contact.githubUrl;
+      githubCard.style.display = 'flex';
+    } else {
+      githubCard.style.display = 'none';
+    }
+  }
+
+  // Copy email
   if (btnCopyEmail) {
     btnCopyEmail.addEventListener('click', () => {
-      navigator.clipboard.writeText(profile.email).then(() => {
+      navigator.clipboard.writeText(contact.email).then(() => {
         showToast('Email address copied to clipboard!', 'success');
       }).catch(() => {
-        showToast(`Email: ${profile.email}`, 'info');
+        showToast(`Email: ${contact.email}`, 'info');
       });
     });
   }
 
-  // Handle contact form submission
+  // Form Submission
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('form-name').value.trim();
       const email = document.getElementById('form-email').value.trim();
-      const subject = document.getElementById('form-subject').value.trim();
       const message = document.getElementById('form-message').value.trim();
 
       if (!name || !email || !message) {
-        showToast('Please fill in all required fields.', 'error');
+        showToast('Please fill out all required fields.', 'error');
         return;
       }
 
-      // Friendly simulated delivery confirmation + mailto fallback option
-      const mailtoUrl = `mailto:${profile.email}?subject=${encodeURIComponent(subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
-      
-      showToast(`Thank you, ${name}! Opening mail client to send your message directly to Mohammed Abrar VK...`, 'success');
+      // If a backend or email service endpoint is configured in Settings, send POST
+      if (contact.formEndpoint && contact.formEndpoint.trim() !== '') {
+        try {
+          showToast('Sending message via configured service endpoint...', 'info');
+          const res = await fetch(contact.formEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message, date: new Date().toISOString() })
+          });
+          if (res.ok) {
+            showToast('Message sent successfully! Thank you for reaching out.', 'success');
+            contactForm.reset();
+            return;
+          } else {
+            throw new Error('Service responded with error');
+          }
+        } catch (err) {
+          showToast('Failed to deliver via configured endpoint. Falling back to direct email.', 'error');
+        }
+      }
+
+      // Transparent fallback: Mailto link
+      const mailtoUrl = `mailto:${contact.email}?subject=${encodeURIComponent(`Portfolio Message from ${name}`)}&body=${encodeURIComponent(`Sender Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`)}`;
+      showToast(`Launching email client to send directly to Mohammed Abrar VK...`, 'success');
       setTimeout(() => {
         window.location.href = mailtoUrl;
-      }, 1000);
+      }, 900);
       contactForm.reset();
     });
   }
 }
 
 /* ==========================================================================
-   8. ADMIN MANAGEMENT MODAL & CRUD
-   Allows editing Skills, Projects, and Profile settings with localStorage sync
+   11. PRIVATE ADMIN PANEL (MODAL & CRUD)
+   Tabs: Profile, Skills, Projects, Analytics, Education, Learning, Contact, Settings
    ========================================================================== */
 function initAdminModal() {
   const modal = document.getElementById('admin-modal');
-  const btnOpenModal = document.getElementById('btn-admin-modal');
   const btnFab = document.getElementById('fab-admin-trigger');
   const btnCloseModal = document.getElementById('btn-modal-close');
   const adminTabBtns = document.querySelectorAll('.admin-tab-btn');
   const adminPanes = document.querySelectorAll('.admin-modal-container .tab-pane');
 
-  function openModal(tabName = 'skills') {
+  window.openAdminModal = function(tabName = 'profile') {
+    if (!PortfolioStore.isAdminAuthenticated()) {
+      const loginModal = document.getElementById('admin-login-modal');
+      if (loginModal) loginModal.classList.add('open');
+      return;
+    }
     if (!modal) return;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
     switchAdminTab(tabName);
+    loadAdminProfileForm();
     loadAdminSkillsTable();
     loadAdminProjectsTable();
-    loadAdminProfileForm();
-  }
+    loadAdminEducationTable();
+    loadAdminLearningTable();
+    loadAdminContactForm();
+  };
 
   function closeModal() {
     if (!modal) return;
@@ -893,28 +1177,15 @@ function initAdminModal() {
     document.body.style.overflow = '';
   }
 
-  if (btnOpenModal) btnOpenModal.addEventListener('click', () => openModal('skills'));
-  if (btnFab) btnFab.addEventListener('click', () => openModal('skills'));
+  if (btnFab) btnFab.addEventListener('click', () => openAdminModal('profile'));
   if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 
-  // Close when clicking modal backdrop
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
     });
   }
 
-  // Keyboard shortcut Ctrl+Shift+E
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'e') {
-      e.preventDefault();
-      modal.classList.contains('open') ? closeModal() : openModal();
-    } else if (e.key === 'Escape' && modal.classList.contains('open')) {
-      closeModal();
-    }
-  });
-
-  // Admin Tab Switching
   function switchAdminTab(targetTab) {
     adminTabBtns.forEach(btn => {
       if (btn.getAttribute('data-tab') === targetTab) {
@@ -940,7 +1211,28 @@ function initAdminModal() {
     });
   });
 
-  // Skill Admin Form Submission
+  // Profile Form
+  const profileForm = document.getElementById('admin-profile-form');
+  if (profileForm) {
+    profileForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const current = PortfolioStore.getProfile();
+      const updated = {
+        ...current,
+        name: document.getElementById('profile-input-name').value.trim(),
+        title: document.getElementById('profile-input-title').value.trim(),
+        summary: document.getElementById('profile-input-summary').value.trim(),
+        aboutNarrative: document.getElementById('profile-input-narrative').value.trim()
+      };
+      PortfolioStore.saveProfile(updated);
+      showToast('Profile information updated!', 'success');
+      initHeroProfile();
+      const aboutLead = document.getElementById('about-lead-text');
+      if (aboutLead) aboutLead.textContent = updated.aboutNarrative;
+    });
+  }
+
+  // Skills Form
   const skillForm = document.getElementById('admin-skill-form');
   if (skillForm) {
     skillForm.addEventListener('submit', (e) => {
@@ -950,29 +1242,15 @@ function initAdminModal() {
       const description = document.getElementById('skill-input-desc').value.trim();
       const icon = document.getElementById('skill-input-icon').value;
 
-      if (!name || !description) {
-        showToast('Please enter skill name and description.', 'error');
-        return;
-      }
-
       let skills = PortfolioStore.getSkills();
 
       if (editingSkillId) {
-        // Edit existing
         skills = skills.map(s => s.id === editingSkillId ? { ...s, name, category, description, icon } : s);
         editingSkillId = null;
         document.getElementById('skill-form-submit-btn').textContent = 'Add Skill';
         showToast(`Skill "${name}" updated!`, 'success');
       } else {
-        // Add new
-        const newSkill = {
-          id: `skill-${Date.now()}`,
-          name,
-          category,
-          description,
-          icon
-        };
-        skills.push(newSkill);
+        skills.push({ id: `skill-${Date.now()}`, name, category, description, icon });
         showToast(`Skill "${name}" added!`, 'success');
       }
 
@@ -983,7 +1261,7 @@ function initAdminModal() {
     });
   }
 
-  // Project Admin Form Submission
+  // Project Form
   const projectForm = document.getElementById('admin-project-form');
   if (projectForm) {
     projectForm.addEventListener('submit', (e) => {
@@ -997,51 +1275,24 @@ function initAdminModal() {
       const liveUrl = document.getElementById('proj-input-live').value.trim();
       const image = document.getElementById('proj-input-image').value.trim() || 'assets/nss_preview.jpg';
 
-      if (!title || !desc) {
-        showToast('Please fill in project title and description.', 'error');
-        return;
-      }
-
       let projects = PortfolioStore.getProjects();
       const technologies = techStr.split(',').map(t => t.trim()).filter(Boolean);
 
       if (editingProjectId) {
-        projects = projects.map(p => {
-          if (p.id === editingProjectId) {
-            return {
-              ...p,
-              title,
-              category,
-              status,
-              statusBadge: status,
-              technologies,
-              description: desc,
-              githubUrl,
-              liveUrl,
-              image
-            };
-          }
-          return p;
-        });
+        projects = projects.map(p => p.id === editingProjectId ? {
+          ...p, title, category, status, statusBadge: status, technologies, description: desc, githubUrl, liveUrl, image
+        } : p);
         editingProjectId = null;
         document.getElementById('proj-form-submit-btn').textContent = 'Add Project';
         showToast(`Project "${title}" updated!`, 'success');
       } else {
-        const newProj = {
+        projects.push({
           id: `proj-${Date.now()}`,
-          title,
-          category,
-          status,
-          statusBadge: status,
-          technologies,
-          description: desc,
+          title, category, status, statusBadge: status, technologies, description: desc,
           features: ['Modern responsive UI', 'Structured workflows'],
           roleModules: null,
-          githubUrl,
-          liveUrl,
-          image
-        };
-        projects.push(newProj);
+          githubUrl, liveUrl, image
+        });
         showToast(`Project "${title}" added!`, 'success');
       }
 
@@ -1052,31 +1303,109 @@ function initAdminModal() {
     });
   }
 
-  // Profile Form Submission
-  const profileForm = document.getElementById('admin-profile-form');
-  if (profileForm) {
-    profileForm.addEventListener('submit', (e) => {
+  // Education Form
+  const eduForm = document.getElementById('admin-edu-form');
+  if (eduForm) {
+    eduForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const current = PortfolioStore.getProfile();
+      const degree = document.getElementById('edu-input-degree').value.trim();
+      const college = document.getElementById('edu-input-college').value.trim();
+      const university = document.getElementById('edu-input-university').value.trim();
+      const graduationYear = document.getElementById('edu-input-year').value.trim();
+      const description = document.getElementById('edu-input-desc').value.trim();
+
+      let eduList = PortfolioStore.getEducation();
+
+      if (editingEducationId) {
+        eduList = eduList.map(item => item.id === editingEducationId ? {
+          ...item, degree, college, university, graduationYear, status: `Graduated: ${graduationYear}`, description
+        } : item);
+        editingEducationId = null;
+        document.getElementById('edu-form-submit-btn').textContent = 'Add Education Entry';
+        showToast(`Education entry updated!`, 'success');
+      } else {
+        eduList.push({
+          id: `edu-${Date.now()}`,
+          degree, college, university, graduationYear,
+          status: `Graduated: ${graduationYear}`,
+          description,
+          subjects: ['Core Computing Curricula', 'Applied Technical Study']
+        });
+        showToast(`Education entry added!`, 'success');
+      }
+
+      PortfolioStore.saveEducation(eduList);
+      eduForm.reset();
+      loadAdminEducationTable();
+      renderEducation();
+    });
+  }
+
+  // Learning Topics Form
+  const learnForm = document.getElementById('admin-learn-form');
+  if (learnForm) {
+    learnForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const topic = document.getElementById('learn-input-topic').value.trim();
+      const category = document.getElementById('learn-input-cat').value.trim();
+      const status = document.getElementById('learn-input-status').value.trim();
+      const description = document.getElementById('learn-input-desc').value.trim();
+      const icon = document.getElementById('learn-input-icon').value;
+
+      let list = PortfolioStore.getLearning();
+
+      if (editingLearningId) {
+        list = list.map(item => item.id === editingLearningId ? {
+          ...item, topic, category, status, description, icon
+        } : item);
+        editingLearningId = null;
+        document.getElementById('learn-form-submit-btn').textContent = 'Add Learning Topic';
+        showToast(`Topic "${topic}" updated!`, 'success');
+      } else {
+        list.push({
+          id: `learn-${Date.now()}`,
+          topic, category, status, description, icon
+        });
+        showToast(`Topic "${topic}" added!`, 'success');
+      }
+
+      PortfolioStore.saveLearning(list);
+      learnForm.reset();
+      loadAdminLearningTable();
+      renderLearning();
+    });
+  }
+
+  // Contact Settings Form
+  const contactFormAdmin = document.getElementById('admin-contact-form');
+  if (contactFormAdmin) {
+    contactFormAdmin.addEventListener('submit', (e) => {
+      e.preventDefault();
       const updated = {
-        ...current,
-        name: document.getElementById('profile-input-name').value.trim(),
-        title: document.getElementById('profile-input-title').value.trim(),
-        summary: document.getElementById('profile-input-summary').value.trim(),
-        college: document.getElementById('profile-input-college').value.trim(),
-        university: document.getElementById('profile-input-university').value.trim(),
-        graduationYear: document.getElementById('profile-input-year').value.trim(),
-        location: document.getElementById('profile-input-location').value.trim(),
-        email: document.getElementById('profile-input-email').value.trim(),
-        linkedinUrl: document.getElementById('profile-input-linkedin').value.trim(),
-        githubUrl: document.getElementById('profile-input-github').value.trim()
+        email: document.getElementById('contact-input-email').value.trim(),
+        phone: document.getElementById('contact-input-phone').value.trim(),
+        location: document.getElementById('contact-input-location').value.trim(),
+        linkedinUrl: document.getElementById('contact-input-linkedin').value.trim(),
+        githubUrl: document.getElementById('contact-input-github').value.trim(),
+        formEndpoint: document.getElementById('contact-input-endpoint').value.trim()
       };
 
-      PortfolioStore.saveProfile(updated);
-      showToast('Profile information saved!', 'success');
-      initHeroProfile();
-      initEducation();
-      initContactForm();
+      PortfolioStore.saveContact(updated);
+      showToast('Contact details saved!', 'success');
+      initContactSection();
+    });
+  }
+
+  // Passkey Settings Form
+  const passkeyForm = document.getElementById('admin-passkey-form');
+  if (passkeyForm) {
+    passkeyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newKey = document.getElementById('settings-new-passkey').value.trim();
+      if (!newKey) return;
+      PortfolioStore.setAdminPasskey(newKey);
+      showToast('Admin passkey updated successfully!', 'success');
+      passkeyForm.reset();
     });
   }
 
@@ -1109,8 +1438,8 @@ function initAdminModal() {
       reader.onload = (event) => {
         try {
           PortfolioStore.importJSON(event.target.result);
-          showToast('Data imported successfully! Refreshing portfolio...', 'success');
-          setTimeout(() => window.location.reload(), 1000);
+          showToast('Data imported successfully! Reloading...', 'success');
+          setTimeout(() => window.location.reload(), 900);
         } catch (err) {
           showToast('Invalid JSON backup file.', 'error');
         }
@@ -1123,7 +1452,7 @@ function initAdminModal() {
     btnResetDefaults.addEventListener('click', () => {
       if (confirm('Are you sure you want to restore all portfolio data to factory default?')) {
         PortfolioStore.resetAllToDefault();
-        showToast('Reset to defaults complete. Reloading...', 'info');
+        showToast('Restored to default. Reloading...', 'info');
         setTimeout(() => window.location.reload(), 800);
       }
     });
@@ -1131,6 +1460,18 @@ function initAdminModal() {
 }
 
 // Admin Table Loaders
+function loadAdminProfileForm() {
+  const profile = PortfolioStore.getProfile();
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val || '';
+  };
+  setVal('profile-input-name', profile.name);
+  setVal('profile-input-title', profile.title);
+  setVal('profile-input-summary', profile.summary);
+  setVal('profile-input-narrative', profile.aboutNarrative);
+}
+
 function loadAdminSkillsTable() {
   const skills = PortfolioStore.getSkills();
   const listEl = document.getElementById('admin-skills-list');
@@ -1174,103 +1515,122 @@ function loadAdminProjectsTable() {
   `).join('');
 }
 
-function loadAdminProfileForm() {
-  const profile = PortfolioStore.getProfile();
+function loadAdminEducationTable() {
+  const eduList = PortfolioStore.getEducation();
+  const listEl = document.getElementById('admin-education-list');
+  if (!listEl) return;
+
+  listEl.innerHTML = eduList.map((item) => `
+    <div class="admin-item-row">
+      <div class="admin-item-info">
+        <span class="admin-item-name">${item.degree}</span>
+        <span class="admin-item-badge">${item.college} (${item.graduationYear})</span>
+      </div>
+      <div class="admin-row-actions">
+        <button class="admin-btn-action" onclick="openEditEducationModal('${item.id}')">Edit</button>
+        <button class="admin-btn-action del" onclick="handleDeleteEducation('${item.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadAdminLearningTable() {
+  const topics = PortfolioStore.getLearning();
+  const listEl = document.getElementById('admin-learning-list');
+  if (!listEl) return;
+
+  listEl.innerHTML = topics.map((t, idx) => `
+    <div class="admin-item-row">
+      <div class="admin-item-info">
+        <span class="admin-item-name">${t.topic}</span>
+        <span class="admin-item-badge">${t.status}</span>
+      </div>
+      <div class="admin-row-actions">
+        <button class="admin-btn-action" onclick="openEditLearningModal('${t.id}')">Edit</button>
+        <button class="admin-btn-action del" onclick="handleDeleteLearning('${t.id}')">Delete</button>
+        <button class="admin-btn-action" onclick="handleMoveLearning('${t.id}', -1)" ${idx === 0 ? 'disabled' : ''}>↑</button>
+        <button class="admin-btn-action" onclick="handleMoveLearning('${t.id}', 1)" ${idx === topics.length - 1 ? 'disabled' : ''}>↓</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadAdminContactForm() {
+  const contact = PortfolioStore.getContact();
   const setVal = (id, val) => {
     const el = document.getElementById(id);
     if (el) el.value = val || '';
   };
-
-  setVal('profile-input-name', profile.name);
-  setVal('profile-input-title', profile.title);
-  setVal('profile-input-summary', profile.summary);
-  setVal('profile-input-college', profile.college);
-  setVal('profile-input-university', profile.university);
-  setVal('profile-input-year', profile.graduationYear);
-  setVal('profile-input-location', profile.location);
-  setVal('profile-input-email', profile.email);
-  setVal('profile-input-linkedin', profile.linkedinUrl);
-  setVal('profile-input-github', profile.githubUrl);
+  setVal('contact-input-email', contact.email);
+  setVal('contact-input-phone', contact.phone);
+  setVal('contact-input-location', contact.location);
+  setVal('contact-input-linkedin', contact.linkedinUrl);
+  setVal('contact-input-github', contact.githubUrl);
+  setVal('contact-input-endpoint', contact.formEndpoint);
 }
 
-// Global CRUD helpers
+// Global CRUD Functions
 window.handleDeleteSkill = function(id) {
   if (!confirm('Are you sure you want to delete this skill?')) return;
-  let skills = PortfolioStore.getSkills();
-  skills = skills.filter(s => s.id !== id);
+  let skills = PortfolioStore.getSkills().filter(s => s.id !== id);
   PortfolioStore.saveSkills(skills);
   loadAdminSkillsTable();
   renderSkills();
   showToast('Skill deleted.', 'info');
 };
 
-window.handleMoveSkill = function(id, direction) {
+window.handleMoveSkill = function(id, dir) {
   let skills = PortfolioStore.getSkills();
   const idx = skills.findIndex(s => s.id === id);
   if (idx < 0) return;
-  const targetIdx = idx + direction;
-  if (targetIdx < 0 || targetIdx >= skills.length) return;
-
+  const target = idx + dir;
+  if (target < 0 || target >= skills.length) return;
   const temp = skills[idx];
-  skills[idx] = skills[targetIdx];
-  skills[targetIdx] = temp;
-
+  skills[idx] = skills[target];
+  skills[target] = temp;
   PortfolioStore.saveSkills(skills);
   loadAdminSkillsTable();
   renderSkills();
 };
 
 window.openEditSkillModal = function(id) {
-  const skills = PortfolioStore.getSkills();
-  const skill = skills.find(s => s.id === id);
+  const skill = PortfolioStore.getSkills().find(s => s.id === id);
   if (!skill) return;
-
   editingSkillId = id;
   document.getElementById('skill-input-name').value = skill.name;
   document.getElementById('skill-input-category').value = skill.category;
   document.getElementById('skill-input-desc').value = skill.description;
   document.getElementById('skill-input-icon').value = skill.icon;
   document.getElementById('skill-form-submit-btn').textContent = 'Update Skill';
-
-  // Open modal on skills tab
-  const modal = document.getElementById('admin-modal');
-  if (modal) modal.classList.add('open');
-  const skillTabBtn = document.querySelector('.admin-tab-btn[data-tab="skills"]');
-  if (skillTabBtn) skillTabBtn.click();
-  document.getElementById('skill-input-name').focus();
+  openAdminModal('skills');
 };
 
 window.handleDeleteProject = function(id) {
   if (!confirm('Are you sure you want to delete this project?')) return;
-  let projects = PortfolioStore.getProjects();
-  projects = projects.filter(p => p.id !== id);
+  let projects = PortfolioStore.getProjects().filter(p => p.id !== id);
   PortfolioStore.saveProjects(projects);
   loadAdminProjectsTable();
   renderProjects();
   showToast('Project deleted.', 'info');
 };
 
-window.handleMoveProject = function(id, direction) {
+window.handleMoveProject = function(id, dir) {
   let projects = PortfolioStore.getProjects();
   const idx = projects.findIndex(p => p.id === id);
   if (idx < 0) return;
-  const targetIdx = idx + direction;
-  if (targetIdx < 0 || targetIdx >= projects.length) return;
-
+  const target = idx + dir;
+  if (target < 0 || target >= projects.length) return;
   const temp = projects[idx];
-  projects[idx] = projects[targetIdx];
-  projects[targetIdx] = temp;
-
+  projects[idx] = projects[target];
+  projects[target] = temp;
   PortfolioStore.saveProjects(projects);
   loadAdminProjectsTable();
   renderProjects();
 };
 
 window.openEditProjectModal = function(id) {
-  const projects = PortfolioStore.getProjects();
-  const proj = projects.find(p => p.id === id);
+  const proj = PortfolioStore.getProjects().find(p => p.id === id);
   if (!proj) return;
-
   editingProjectId = id;
   document.getElementById('proj-input-title').value = proj.title;
   document.getElementById('proj-input-category').value = proj.category;
@@ -1281,16 +1641,69 @@ window.openEditProjectModal = function(id) {
   document.getElementById('proj-input-live').value = proj.liveUrl || '';
   document.getElementById('proj-input-image').value = proj.image || '';
   document.getElementById('proj-form-submit-btn').textContent = 'Update Project';
+  openAdminModal('projects');
+};
 
-  const modal = document.getElementById('admin-modal');
-  if (modal) modal.classList.add('open');
-  const projTabBtn = document.querySelector('.admin-tab-btn[data-tab="projects"]');
-  if (projTabBtn) projTabBtn.click();
-  document.getElementById('proj-input-title').focus();
+window.handleDeleteEducation = function(id) {
+  if (!confirm('Are you sure you want to delete this education entry?')) return;
+  let list = PortfolioStore.getEducation().filter(e => e.id !== id);
+  PortfolioStore.saveEducation(list);
+  loadAdminEducationTable();
+  renderEducation();
+  showToast('Education entry deleted.', 'info');
+};
+
+window.openEditEducationModal = function(id) {
+  const item = PortfolioStore.getEducation().find(e => e.id === id);
+  if (!item) return;
+  editingEducationId = id;
+  document.getElementById('edu-input-degree').value = item.degree;
+  document.getElementById('edu-input-college').value = item.college;
+  document.getElementById('edu-input-university').value = item.university;
+  document.getElementById('edu-input-year').value = item.graduationYear;
+  document.getElementById('edu-input-desc').value = item.description;
+  document.getElementById('edu-form-submit-btn').textContent = 'Update Education Entry';
+  openAdminModal('education');
+};
+
+window.handleDeleteLearning = function(id) {
+  if (!confirm('Are you sure you want to delete this learning topic?')) return;
+  let list = PortfolioStore.getLearning().filter(l => l.id !== id);
+  PortfolioStore.saveLearning(list);
+  loadAdminLearningTable();
+  renderLearning();
+  showToast('Learning topic deleted.', 'info');
+};
+
+window.handleMoveLearning = function(id, dir) {
+  let list = PortfolioStore.getLearning();
+  const idx = list.findIndex(l => l.id === id);
+  if (idx < 0) return;
+  const target = idx + dir;
+  if (target < 0 || target >= list.length) return;
+  const temp = list[idx];
+  list[idx] = list[target];
+  list[target] = temp;
+  PortfolioStore.saveLearning(list);
+  loadAdminLearningTable();
+  renderLearning();
+};
+
+window.openEditLearningModal = function(id) {
+  const item = PortfolioStore.getLearning().find(l => l.id === id);
+  if (!item) return;
+  editingLearningId = id;
+  document.getElementById('learn-input-topic').value = item.topic;
+  document.getElementById('learn-input-cat').value = item.category;
+  document.getElementById('learn-input-status').value = item.status;
+  document.getElementById('learn-input-desc').value = item.description;
+  document.getElementById('learn-input-icon').value = item.icon || 'search';
+  document.getElementById('learn-form-submit-btn').textContent = 'Update Learning Topic';
+  openAdminModal('learning');
 };
 
 /* ==========================================================================
-   9. TOAST NOTIFICATION UTILITY
+   12. TOAST NOTIFICATIONS
    ========================================================================== */
 function initToasts() {
   let container = document.getElementById('toast-container');
